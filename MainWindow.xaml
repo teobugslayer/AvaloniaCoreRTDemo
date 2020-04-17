@@ -4,6 +4,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AvaloniaCoreRTDemo.MainWindow"
+        Width="640" Height="480"
+        WindowStartupLocation="CenterScreen"
         Title="AvaloniaCoreRTDemo">
-    Welcome to Avalonia!
+  <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" Margin="32">
+    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" TextAlignment="Center" Margin="0,6">Welcome to Avalonia UI + CoreRT!</TextBlock>
+    <Image Grid.Row="1" Grid.Column="0" Stretch="None" Source="{Binding DotNetImage}"></Image>
+    <Image Grid.Row="1" Grid.Column="1" Stretch="None" Source="{Binding AvaloniaImage}"></Image>
+  </Grid>
 </Window>
