@@ -2001,7 +2001,16 @@
         }
       }
     },
-    ".NETCoreApp,Version=v5.0/win-x86": {
+    ".NETCoreApp,Version=v5.0/win-x64": {
+      "Microsoft.DotNet.ILCompiler": {
+        "type": "Direct",
+        "requested": "[1.0.0-alpha-*, )",
+        "resolved": "1.0.0-alpha-28817-01",
+        "contentHash": "XiYIuIfAjVcTNrEVTYr2vO+SvjtKB8PDReeOz/oXYwJ/2tDhNe/46TCiyw8AVEL8XWIN4z6Ez/ZrIKGweYTvkg==",
+        "dependencies": {
+          "runtime.win-x64.Microsoft.DotNet.ILCompiler": "1.0.0-alpha-28817-01"
+        }
+      },
       "Avalonia.Native": {
         "type": "Transitive",
         "resolved": "0.9.7",
@@ -2208,6 +2217,11 @@
         "type": "Transitive",
         "resolved": "4.3.0",
         "contentHash": "VB5cn/7OzUfzdnC8tqAIMQciVLiq2epm2NrAm1E9OjNRyG4lVhfR61SMcLizejzQP8R8Uf/0l5qOIbUEi+RdEg=="
+      },
+      "runtime.win-x64.Microsoft.DotNet.ILCompiler": {
+        "type": "Transitive",
+        "resolved": "1.0.0-alpha-28817-01",
+        "contentHash": "T5j3voaK71tqTBzr4PLcRJ+dtSAtxS0bzeXz9X7N7hEi//xq+GemjtuXCkEEApvjwkAfoAolmuiJ7j2ZSPRE2Q=="
       },
       "runtime.win.Microsoft.Win32.Primitives": {
         "type": "Transitive",
