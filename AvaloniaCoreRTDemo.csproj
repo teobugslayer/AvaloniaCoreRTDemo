@@ -1,9 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
+	<!-- This is a hack. Avalonia 0.9.7 depends on a version of System.Reactive prior 4.4.1, which contains a critical fix for building with CoreRT -->
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
+  
+  <PropertyGroup>
+	<RootAllApplicationAssemblies>false</RootAllApplicationAssemblies>
+	<IlcGenerateCompleteTypeMetadata>true</IlcGenerateCompleteTypeMetadata>
+	<IlcGenerateStackTraceData>true</IlcGenerateStackTraceData>
+	<IlcDisableUnhandledExceptionExperience>false</IlcDisableUnhandledExceptionExperience>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <NativeLibrary Include="WindowsApp.lib" />
+  </ItemGroup>
+  
   <ItemGroup>
     <Compile Update="**\*.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
@@ -17,7 +31,12 @@
     <PackageReference Include="Avalonia.Desktop" Version="0.9.7" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.7" />
     <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="1.0.0-alpha-*" />
+	<!-- This is a hack. Avalonia 0.9.7 depends on a version of System.Reactive prior 4.4.1, which contains a critical fix for building with CoreRT -->
     <PackageReference Include="System.Reactive" Version="4.4.1" />
+  </ItemGroup>
+  <ItemGroup>
+	<!-- Avalonis relies heavily on reflection. Describe types needed here. -->
+    <RdXmlFile Include="rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Update="avalonia.png" CopyToPublishDirectory="PreserveNewest">
