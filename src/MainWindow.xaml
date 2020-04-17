@@ -16,10 +16,11 @@
                 <MenuItem Header="About"/>
             </MenuItem>
         </Menu>
-        <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" Margin="32">
+        <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,*" Margin="32">
             <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" TextAlignment="Center" Margin="0,6">Welcome to Avalonia UI + CoreRT!</TextBlock>
             <Image Grid.Row="1" Grid.Column="0" Stretch="None" Source="{Binding DotNetImage}"></Image>
             <Image Grid.Row="1" Grid.Column="1" Stretch="None" Source="{Binding AvaloniaImage}"></Image>
+            <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Watermark="Type here" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
         </Grid>
     </DockPanel>
   
