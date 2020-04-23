@@ -15,7 +15,7 @@ When installing Visual Studio, select *.NET desktop development* and *Desktop de
 ### Get the source code
 After you have installed the prerequisites, your first step is to get the source code:
 1. From the Windows Start menu, start *x64 Native Tools Command Prompt for VS 2019*. This configures the development environment with 64-bit dev tools, which CoreRT requires to build your apps.
-1. Get the sample project. Open a terminal, and clone it:
+1. Get the sample project. In your terminal, and clone it:
 
 ```bash
 git clone git@github.com:teobugslayer/AvaloniaCoreRTDemo.git
