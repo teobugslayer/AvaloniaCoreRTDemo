@@ -30,11 +30,7 @@ At the time of writing, there's an incompatibility between the current version o
 ```
 Therefore, to build the sample, you perform the following:
 
-1. Open the solution file in Visual Studio. You may use `start .\AvaloniaCoreRTDemo.sln` from your terminal.
-1. Build the solution using `Release` and `x64` configuration. 
-You need this step because it produces some files which you will need later.
-1. Go back to your terminal.
-1. Delete the existing Nuget version lock file (this step is not needed when you build the code for the first time): `del src\packages.lock.json`
+1. Go to your terminal.
 1. Build the source code: `dotnet publish -r win-x64 -c release`
 
 **Note**: Avalonia and CoreRT are huge. Downloading them might take some time. During this period, which happens on the first build, and when CoreRT releases a new version, it will look like nothing happens. Just be patient.
