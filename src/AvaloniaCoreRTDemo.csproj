@@ -1,20 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+	<!-- if you want to check exceptions, change this to "Exe" and start your app from the console -->
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-	<!-- This is a hack. Avalonia 0.9.7 depends on a version of System.Reactive prior 4.4.1, which contains a critical fix for building with CoreRT -->
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+	<!-- This is a hack. Avalonia 0.9.9 depends on a version of System.Reactive prior 4.4.1, which contains a critical fix for building with CoreRT -->
+    <!--<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>-->
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   
   <PropertyGroup>
+	<!-- these can help when debugging weird exceptions especially when reflection is involved. See https://github.com/dotnet/corert/blob/master/Documentation/using-corert/optimizing-corert.md -->  
 	<RootAllApplicationAssemblies>false</RootAllApplicationAssemblies>
-	<IlcGenerateCompleteTypeMetadata>true</IlcGenerateCompleteTypeMetadata>
+	<IlcGenerateCompleteTypeMetadata>false</IlcGenerateCompleteTypeMetadata>
 	<IlcGenerateStackTraceData>true</IlcGenerateStackTraceData>
 	<IlcDisableUnhandledExceptionExperience>false</IlcDisableUnhandledExceptionExperience>
   </PropertyGroup>
   
   <ItemGroup>
+	<!-- Instruct CoreRT to use this native dependency, required to build Avalonia. This library comes from the Windows SDK. -->
     <NativeLibrary Include="WindowsApp.lib" />
   </ItemGroup>
   
@@ -27,9 +30,9 @@
     </AvaloniaResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.9.7" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.9.7" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.7" />
+    <PackageReference Include="Avalonia" Version="0.9.9" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.9.9" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.9" />
     <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="1.0.0-alpha-*" />
 	<!-- This is a hack. Avalonia 0.9.7 depends on a version of System.Reactive prior 4.4.1, which contains a critical fix for building with CoreRT -->
     <PackageReference Include="System.Reactive" Version="4.4.1" />
