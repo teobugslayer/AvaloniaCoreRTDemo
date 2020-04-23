@@ -21,21 +21,22 @@ After you have installed the prerequisites, your first step is to get the source
 git clone git@github.com:teobugslayer/AvaloniaCoreRTDemo.git
 cd AvaloniaCoreRTDemo
 ```
+Then, build the sample:
 
-### Build the project
-At the time of writing, there's an incompatibility between the current version of Avalonia (0.9.9) and CoreRT, which we need to solve. To give you context, CoreRT is an ahead-of-time compiler, and specific code patterns cannot be used with it, while JIT compilers handle them easily. One such pattern is the infinite generic type expansions, and one of Avalonia dependencies uses it, as discussed in [this issue](https://github.com/dotnet/corert/issues/7920#issuecomment-568536702). The library which uses this code has released a fixed version. However, Avalonia still depends on an older version of the library and thus does not have the fix. We need to force the new version. To do this, the sample project explicitly refers to the new version of this sub-dependency:
+```bash
+dotnet publish -r win-x64 -c release
+```
+**Note**: Avalonia and CoreRT are huge. Downloading them might take some time. During this period, which happens on the first build, and when CoreRT releases a new version, it will look like nothing happens. Just be patient.
+
+We are ready - In your terminal, navigate to `src\bin\Release\net5.0\win-x64\publish`, and start AvaloniaCoreRTDemo.exe - it should work!
+
+### Background information
+
+At the time of writing, there's an incompatibility between the current version of Avalonia (0.9.9) and CoreRT, which we need to solve. To give you context, CoreRT is an ahead-of-time compiler, and specific code patterns cannot be used with it, while JIT compilers handle them easily. One such pattern is the infinite generic type expansions, and one of Avalonia dependencies [uses it](https://github.com/dotnet/corert/issues/7920#issuecomment-568536702). The library which uses this code has released a fixed version. However, Avalonia has not been updated yet. To solve this problem, we force the new version of the sub-dependency in the project file:
 
 ```XML
 <PackageReference Include="System.Reactive" Version="4.4.1" />
 ```
-Therefore, to build the sample, you perform the following:
-
-1. Go to your terminal.
-1. Build the source code: `dotnet publish -r win-x64 -c release`
-
-**Note**: Avalonia and CoreRT are huge. Downloading them might take some time. During this period, which happens on the first build, and when CoreRT releases a new version, it will look like nothing happens. Just be patient.
-
-We are ready - In your terminal, navigate to `src\bin\Release\net5.0\win-x64\publish`, and start AvaloniaCoreRTDemo.exe - it should work!
 
 ## Further development
 
