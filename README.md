@@ -46,16 +46,11 @@ You need this step because it produces some files which you will need later.
 
 **Note**: Avalonia and CoreRT are huge. Downloading them might take some time. During this period, which happens on the first build, and when CoreRT releases a new version, it will look like nothing happens. Just be patient.
 
-We are almost ready - just one more step! CoreRT creates a single executable containing all your *managed* code. However, Avalonia depends on a few unmanaged DLLs. Let's supply them! To do this:
-
-1. In your terminal open Explorer - invoke the command `start .`
-1. Navigate to `src\bin\x64\Release\net5.0` and copy the entire `runtimes` directory. This directory has been created by the build you performed earlier. 
-1. Navigate to `src\bin\Release\net5.0\win-x64\publish` and paste it.
-1. Double-click AvaloniaCoreRTDemo.exe - it should start!
+We are ready - In your terminal, navigate to `src\bin\Release\net5.0\win-x64\publish`, and start AvaloniaCoreRTDemo.exe - it should work!
 
 ## Further development
 
-Feel free to use this sample as a base for your projects. 
+Feel free to use this sample as a base for your projects.
 
 When developing, keep in mind that Avalonia uses Reflection extensively. CoreRT, being an AOT compiler, needs your help to get reflection right. Refer to `rd.xml` file in the solution. In it, you describe all assemblies and types which your app would potentially reflect over. For more information, see [Reflection in AOT mode](https://github.com/dotnet/corert/blob/master/Documentation/using-corert/reflection-in-aot-mode.md)
 
