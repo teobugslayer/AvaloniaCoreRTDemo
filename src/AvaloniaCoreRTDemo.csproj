@@ -16,7 +16,7 @@
 	<IlcDisableUnhandledExceptionExperience>false</IlcDisableUnhandledExceptionExperience>
   </PropertyGroup>
   
-  <ItemGroup>
+  <ItemGroup Condition="$(RuntimeIdentifier.StartsWith('win'))">
 	<!-- Instruct CoreRT to use this native dependency, required to build Avalonia. This library comes from the Windows SDK. -->
     <NativeLibrary Include="WindowsApp.lib" />
   </ItemGroup>
