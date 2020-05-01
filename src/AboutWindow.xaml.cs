@@ -1,16 +1,15 @@
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Shapes;
 using Avalonia.Markup.Xaml;
 
 namespace AvaloniaCoreRTDemo
 {
-    public class MainWindow : Window
+    public class AboutWindow : Window
     {
-        public MainWindow()
+        public AboutWindow()
         {
-            InitializeComponent();
-            this.DataContext = new MainWindowViewModel(this);
+            this.InitializeComponent();
+            this.DataContext = new AboutWindowViewModel();
         }
 
         private void InitializeComponent()
