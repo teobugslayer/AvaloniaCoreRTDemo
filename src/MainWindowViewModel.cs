@@ -9,13 +9,14 @@ namespace AvaloniaCoreRTDemo
 {
     public class MainWindowViewModel: ReactiveObject
     {
-        public MainWindowViewModel()
+        public MainWindowViewModel(MainWindow window)
         {
+            _window = window;
+			
             DotNetImage = new Bitmap(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dotnet.png"));
             AvaloniaImage = new Bitmap(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "avalonia.png"));
 
             FileExitCommand = ReactiveCommand.Create(RunFileExit);
-            HelpAboutCommand = ReactiveCommand.Create(RunHelpAbout);
         }
         
         public IBitmap DotNetImage
@@ -31,7 +32,7 @@ namespace AvaloniaCoreRTDemo
         }
 
         public ReactiveCommand<Unit, Unit> FileExitCommand { get; }
-        public ReactiveCommand<Unit, Unit> HelpAboutCommand { get; }
+        public void HelpAboutMethod() => RunHelpAbout();
 
         void RunFileExit()
         {
@@ -40,10 +41,11 @@ namespace AvaloniaCoreRTDemo
 
         void RunHelpAbout()
         {
-            // Code for executing the command here.
+            new AboutWindow().ShowDialog(_window);
         }
 
         private IBitmap dotNetImage;
         private IBitmap avaloniaImage;
+        private readonly MainWindow _window;
     }
 }
