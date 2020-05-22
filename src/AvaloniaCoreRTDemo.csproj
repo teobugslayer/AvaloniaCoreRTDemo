@@ -7,15 +7,15 @@
   </PropertyGroup>
   
   <PropertyGroup>
-	<!-- these can help when debugging weird exceptions especially when reflection is involved. See https://github.com/dotnet/corert/blob/master/Documentation/using-corert/optimizing-corert.md -->  
-	<RootAllApplicationAssemblies>false</RootAllApplicationAssemblies>
-	<IlcGenerateCompleteTypeMetadata>false</IlcGenerateCompleteTypeMetadata>
-	<IlcGenerateStackTraceData>true</IlcGenerateStackTraceData>
-	<IlcDisableUnhandledExceptionExperience>false</IlcDisableUnhandledExceptionExperience>
+    <!-- these can help when debugging weird exceptions especially when reflection is involved. See https://github.com/dotnet/corert/blob/master/Documentation/using-corert/optimizing-corert.md -->  
+    <RootAllApplicationAssemblies>false</RootAllApplicationAssemblies>
+    <IlcGenerateCompleteTypeMetadata>false</IlcGenerateCompleteTypeMetadata>
+    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
+    <IlcDisableUnhandledExceptionExperience>true</IlcDisableUnhandledExceptionExperience>
   </PropertyGroup>
   
   <ItemGroup Condition="$(RuntimeIdentifier.StartsWith('win'))">
-	<!-- Instruct CoreRT to use this native dependency, required to build Avalonia. This library comes from the Windows SDK. -->
+    <!-- Instruct CoreRT to use this native dependency, required to build Avalonia. This library comes from the Windows SDK. -->
     <NativeLibrary Include="WindowsApp.lib" />
   </ItemGroup>
   
@@ -32,15 +32,15 @@
     <EmbeddedResource Include="windows.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.9.9" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.9.9" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.9" />
+    <PackageReference Include="Avalonia" Version="0.9.10" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.9.10" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.10" />
     <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="1.0.0-alpha-*" />
-	<!-- This is a hack. Avalonia 0.9.7 depends on a version of System.Reactive prior 4.4.1, which contains a critical fix for building with CoreRT -->
+    <!-- This is a hack. Avalonia 0.9.10 depends on a version of System.Reactive prior 4.4.1, which contains a critical fix for building with CoreRT -->
     <PackageReference Include="System.Reactive" Version="4.4.1" />
   </ItemGroup>
   <ItemGroup>
-	<!-- Avalonis relies heavily on reflection. Describe types needed here. -->
+    <!-- Avalonia relies heavily on reflection. Describe types reflected upon here. -->
     <RdXmlFile Include="rd.xml" />
   </ItemGroup>
   <ItemGroup>
