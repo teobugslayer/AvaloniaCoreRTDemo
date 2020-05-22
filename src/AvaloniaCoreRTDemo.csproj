@@ -3,8 +3,6 @@
 	<!-- if you want to check exceptions, change this to "Exe" and start your app from the console -->
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-	<!-- This is a hack. Avalonia 0.9.9 depends on a version of System.Reactive prior 4.4.1, which contains a critical fix for building with CoreRT -->
-    <!--<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>-->
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   
