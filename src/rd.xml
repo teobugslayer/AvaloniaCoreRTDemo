@@ -18,27 +18,21 @@
 	<Assembly Name="Avalonia.Markup" Dynamic="Required All"></Assembly>
 	<Assembly Name="Avalonia.Markup.Xaml" Dynamic="Required All"></Assembly>
 	<Assembly Name="Avalonia.Styling" Dynamic="Required All"></Assembly>
-	
 	<Assembly Name="Avalonia.DesktopRuntime" Dynamic="Required All"></Assembly>
-	
 	<Assembly Name="Avalonia.DesignerSupport" Dynamic="Required All"></Assembly>
 	<Assembly Name="Avalonia.Diagnostics" Dynamic="Required All"></Assembly>
 	<Assembly Name="Avalonia.Dialogs" Dynamic="Required All"></Assembly>
 	<Assembly Name="Avalonia.Input" Dynamic="Required All"></Assembly>
 	<Assembly Name="Avalonia.Logging.Serilog" Dynamic="Required All"></Assembly>
 	<Assembly Name="Avalonia.OpenGL" Dynamic="Required All"></Assembly>
-	
 	<Assembly Name="Avalonia.Desktop" Dynamic="Required All"></Assembly>
 	<Assembly Name="Avalonia.Direct2D1" Dynamic="Required All"></Assembly>
 	<Assembly Name="Avalonia.ReactiveUI" Dynamic="Required All"></Assembly>
 	<Assembly Name="Avalonia.Skia" Dynamic="Required All"></Assembly>
 	<Assembly Name="Avalonia.Win32" Dynamic="Required All"></Assembly>
-	
-	<Assembly Name="SkiaSharp" Dynamic="Required All"></Assembly>
 	<Assembly Name="ReactiveUI" Dynamic="Required All"></Assembly>
 	<Assembly Name="System.Reactive" Dynamic="Required All"></Assembly>
 	<Assembly Name="Splat" Dynamic="Required All"></Assembly>
 	-->
-	
   </Application>
 </Directives>
