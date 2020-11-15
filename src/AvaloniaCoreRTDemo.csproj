@@ -35,7 +35,7 @@
     <PackageReference Include="Avalonia" Version="0.9.10" />
     <PackageReference Include="Avalonia.Desktop" Version="0.9.10" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.10" />
-    <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="1.0.0-alpha-*" />
+    <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="6.0.0-*" />
     <!-- This is a hack. Avalonia 0.9.10 depends on a version of System.Reactive prior 4.4.1, which contains a critical fix for building with CoreRT -->
     <PackageReference Include="System.Reactive" Version="4.4.1" />
   </ItemGroup>
