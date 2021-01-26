@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using Avalonia.Media.Imaging;
 using ReactiveUI;
+
 namespace AvaloniaCoreRTDemo
 {
     public class AboutWindowViewModel : ReactiveObject
