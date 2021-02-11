@@ -1,5 +1,4 @@
-﻿using Avalonia;
-using Avalonia.Media.Imaging;
+﻿using Avalonia.Media.Imaging;
 using ReactiveUI;
 using System;
 using System.Reactive;
