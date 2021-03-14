@@ -4,7 +4,7 @@ Using this project, you will learn how to develop using both frameworks. You may
 ## System requirements
 This project is tested only under Windows, and this readme assumes you are using Windows. To build this project, you need:
 
-* Any supported 64-bit edition of Windows. CoreRT requires 64-bit Windows and produces only 64-bit Windows apps.
+* Any supported 64-bit edition of Windows. NativeAOT requires 64-bit Windows and produces only 64-bit Windows apps.
 * Visual Studio. VS 20019 Community is free for personal use. Get if from [here](https://visualstudio.microsoft.com).
 When installing Visual Studio, select *.NET desktop development* and *Desktop development with C++* workloads. To generate native code, NativeAOT requires the native C++ toolchain and Windows SDK. This configuration ensures you have them.
 * .Net 5.0 SDK. Download it from [here](https://dotnet.microsoft.com/download/dotnet/5.0). Note: Make sure that you download and install the *SDK*. The runtime is not enough for building apps.
@@ -14,7 +14,7 @@ When installing Visual Studio, select *.NET desktop development* and *Desktop de
 
 ### Get the source code
 After you have installed the prerequisites, your first step is to get the source code:
-1. From the Windows Start menu, start *x64 Native Tools Command Prompt for VS 2019*. This configures the development environment with 64-bit dev tools, which CoreRT requires to build your apps.
+1. From the Windows Start menu, start *x64 Native Tools Command Prompt for VS 2019*. This configures the development environment with 64-bit dev tools, which NativeAOT requires to build your apps.
 1. Get the sample project. Go to your terminal, and clone it:
 
 ```bash
@@ -34,6 +34,6 @@ We are ready - In your terminal, navigate to `src\bin\Release\net5.0\win-x64\pub
 
 Feel free to use this sample as a base for your projects.
 
-When developing, keep in mind that Avalonia uses Reflection extensively. CoreRT, being an AOT compiler, needs your help to get reflection right. Refer to `rd.xml` file in the solution. In it, you describe all assemblies and types which your app would potentially reflect over. For more information, see [Reflection in AOT mode](https://github.com/dotnet/corert/blob/master/Documentation/using-corert/reflection-in-aot-mode.md)
+When developing, keep in mind that Avalonia uses Reflection extensively. NativeAOT, being an AOT compiler, needs your help to get reflection right. Refer to `rd.xml` file in the solution. In it, you describe all assemblies and types which your app would potentially reflect over. For more information, see [Reflection in AOT mode](https://github.com/dotnet/runtimelab/blob/feature/NativeAOT/docs/using-nativeaot/reflection-in-aot-mode.md)
 
-This project is configured to help you debug issues with publishing. Before publishing, check the CSPROJ file and modify the various Ilc* properties according to [Optimizing CoreRT](https://github.com/dotnet/corert/blob/master/Documentation/using-corert/optimizing-corert.md) document.
+This project is configured to help you debug issues with publishing. Before publishing, check the CSPROJ file and modify the various Ilc* properties according to [Optimizing programs targeting Native AOT](https://github.com/dotnet/runtimelab/blob/feature/NativeAOT/docs/using-nativeaot/optimizing.md) document.
