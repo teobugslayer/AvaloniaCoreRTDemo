@@ -33,9 +33,9 @@
     <EmbeddedResource Include="windows.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.0" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.0" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.0" />
+    <PackageReference Include="Avalonia" Version="0.10.7" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.7" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.7" />
     <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="6.0.0-*" />
   </ItemGroup>
   <ItemGroup>
