@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <Platforms>AnyCPU;x64</Platforms>
+    <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
   
   <PropertyGroup>
@@ -36,6 +37,7 @@
     <PackageReference Include="Avalonia" Version="0.10.7" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.7" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.7" />
+    <PackageReference Include="Dotnet.Bundle" Version="*" Condition="$(RuntimeIdentifier.StartsWith('osx'))" />
     <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="7.0.0-*" />
   </ItemGroup>
   <ItemGroup>
@@ -45,11 +47,29 @@
   <ItemGroup>
     <None Update="avalonia.png" CopyToPublishDirectory="PreserveNewest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-  </None>
+    </None>
     <None Update="dotnet.png" CopyToPublishDirectory="PreserveNewest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="app.icns" CopyToPublishDirectory="PreserveNewest" Condition="$(RuntimeIdentifier.StartsWith('osx'))">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
+  <PropertyGroup Condition="$(RuntimeIdentifier.StartsWith('osx'))" >
+    <CFBundleName>$(AssemblyName)</CFBundleName>
+    <CFBundleDisplayName>$(AssemblyName)</CFBundleDisplayName>
+    <CFBundleIdentifier>com.$(username).$(AssemblyName)</CFBundleIdentifier>
+    <CFBundleVersion>1.0.0</CFBundleVersion>
+    <CFBundlePackageType>APPL</CFBundlePackageType>
+    <!--<CFBundleSignature>????</CFBundleSignature>-->
+    <CFBundleExecutable>$(AssemblyName)</CFBundleExecutable>
+    <CFBundleIconFile>app.icns</CFBundleIconFile>
+    <NSPrincipalClass>NSApplication</NSPrincipalClass>
+    <NSHighResolutionCapable>true</NSHighResolutionCapable>
+    <CFBundleShortVersionString>1.0</CFBundleShortVersionString>
+    <!-- Optional -->
+    <NSRequiresAquaSystemAppearance>true</NSRequiresAquaSystemAppearance>
+</PropertyGroup>
   <Target Name="ConfigureTrimming" BeforeTargets="PrepareForILLink">
     <ItemGroup>
       <ManagedAssemblyToLink>
