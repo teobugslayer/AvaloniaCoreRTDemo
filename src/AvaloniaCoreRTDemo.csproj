@@ -34,9 +34,9 @@
     <EmbeddedResource Include="windows.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.7" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.7" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.7" />
+    <PackageReference Include="Avalonia" Version="0.10.8" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.8" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.8" />
     <PackageReference Include="Dotnet.Bundle" Version="*" Condition="$(RuntimeIdentifier.StartsWith('osx'))" />
     <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="7.0.0-*" />
   </ItemGroup>
@@ -55,7 +55,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <PropertyGroup Condition="$(RuntimeIdentifier.StartsWith('osx'))" >
+  <PropertyGroup Condition="$(RuntimeIdentifier.StartsWith('osx'))">
     <CFBundleName>$(AssemblyName)</CFBundleName>
     <CFBundleDisplayName>$(AssemblyName)</CFBundleDisplayName>
     <CFBundleIdentifier>com.$(username).$(AssemblyName)</CFBundleIdentifier>
