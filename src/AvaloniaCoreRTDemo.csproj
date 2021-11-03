@@ -15,10 +15,6 @@
     <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
     <IlcDisableUnhandledExceptionExperience>true</IlcDisableUnhandledExceptionExperience>
   </PropertyGroup>
-  
-  <PropertyGroup>
-    <InvariantGlobalization>true</InvariantGlobalization>
-  </PropertyGroup>
     
   <ItemGroup Condition="$(RuntimeIdentifier.StartsWith('win'))">
     <!-- Instruct CoreRT to use this native dependency, required to build Avalonia. This library comes from the Windows SDK. -->
@@ -39,12 +35,13 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.10" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.10" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.10" />
+    <PackageReference Include="Avalonia" Version="0.10.8" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.8" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.8" />
     <PackageReference Include="Dotnet.Bundle" Version="*" Condition="$(RuntimeIdentifier.StartsWith('osx'))" />
     <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="7.0.0-*" />
   </ItemGroup>
+  
   <ItemGroup>
     <!-- Avalonia relies heavily on reflection. Describe types reflected upon here. -->
     <RdXmlFile Include="rd.xml" />
@@ -65,9 +62,10 @@
   <PropertyGroup Condition="$(RuntimeIdentifier.StartsWith('osx'))">
     <CFBundleName>$(AssemblyName)</CFBundleName>
     <CFBundleDisplayName>$(AssemblyName)</CFBundleDisplayName>
-    <CFBundleIdentifier>com.$(USER).$(AssemblyName)</CFBundleIdentifier>
+    <CFBundleIdentifier>com.$(username).$(AssemblyName)</CFBundleIdentifier>
     <CFBundleVersion>1.0.0</CFBundleVersion>
     <CFBundlePackageType>APPL</CFBundlePackageType>
+    <!--<CFBundleSignature>????</CFBundleSignature>-->
     <CFBundleExecutable>$(AssemblyName)</CFBundleExecutable>
     <CFBundleIconFile>app.icns</CFBundleIconFile>
     <NSPrincipalClass>NSApplication</NSPrincipalClass>
@@ -77,5 +75,12 @@
     <NSRequiresAquaSystemAppearance>true</NSRequiresAquaSystemAppearance>
   </PropertyGroup>
   
-  <TrimmerDefaultAction>link</TrimmerDefaultAction>
+  <Target Name="ConfigureTrimming" BeforeTargets="PrepareForILLink">
+    <ItemGroup>
+      <ManagedAssemblyToLink>
+        <TrimMode>link</TrimMode>
+      </ManagedAssemblyToLink>
+    </ItemGroup>
+  </Target>
+  
 </Project>
