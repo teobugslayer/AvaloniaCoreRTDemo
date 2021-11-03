@@ -1,2 +1,2 @@
 del src\packages.lock.json
-dotnet publish -r win-x64 -c release /p:RestoreLockedMode=true --no-self-contained
+dotnet publish -r win-x64 -c release /p:RestoreLockedMode=true --self-contained
