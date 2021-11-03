@@ -58,10 +58,9 @@
   <PropertyGroup Condition="$(RuntimeIdentifier.StartsWith('osx'))">
     <CFBundleName>$(AssemblyName)</CFBundleName>
     <CFBundleDisplayName>$(AssemblyName)</CFBundleDisplayName>
-    <CFBundleIdentifier>com.$(username).$(AssemblyName)</CFBundleIdentifier>
+    <CFBundleIdentifier>com.$(USER).$(AssemblyName)</CFBundleIdentifier>
     <CFBundleVersion>1.0.0</CFBundleVersion>
     <CFBundlePackageType>APPL</CFBundlePackageType>
-    <!--<CFBundleSignature>????</CFBundleSignature>-->
     <CFBundleExecutable>$(AssemblyName)</CFBundleExecutable>
     <CFBundleIconFile>app.icns</CFBundleIconFile>
     <NSPrincipalClass>NSApplication</NSPrincipalClass>
