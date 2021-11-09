@@ -17,7 +17,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
-        include-prerelease: true
     - name: Publish
       run: |
         sudo chmod +x ./test.sh
@@ -37,7 +36,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
-        include-prerelease: true
     - name: Publish
       run: ./test.cmd
     - uses: actions/upload-artifact@v2
@@ -55,7 +53,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
-        include-prerelease: true
     - name: Publish
       run: |
         sudo chmod +x ./test.command
