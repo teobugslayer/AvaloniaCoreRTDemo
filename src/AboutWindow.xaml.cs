@@ -1,4 +1,5 @@
-﻿using Avalonia;
+﻿using System;
+
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
@@ -9,12 +10,17 @@ namespace AvaloniaCoreRTDemo
         public AboutWindow()
         {
             this.InitializeComponent();
-            this.DataContext = new AboutWindowViewModel();
         }
 
-        private void InitializeComponent()
+        public AboutWindow(Boolean darkTheme)
+        {
+            this.InitializeComponent(darkTheme);
+        }
+
+        private void InitializeComponent(Boolean darkTheme = default)
         {
             AvaloniaXamlLoader.Load(this);
+            this.DataContext = new AboutWindowViewModel(darkTheme);
         }
     }
 }

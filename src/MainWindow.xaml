@@ -7,23 +7,29 @@
         Width="640" Height="480"
         WindowStartupLocation="CenterScreen"
         Title="AvaloniaCoreRTDemo"
-		Icon="avares://AvaloniaCoreRTDemo/app.ico"
+		Icon="avares://AvaloniaCoreRTDemo/Assets/app.ico"
         MinWidth="400" MinHeight="350">
-    <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_File">
-                <MenuItem Header="_Exit" Command="{Binding FileExitCommand}"/>
-            </MenuItem>
-            <MenuItem Header="_Help">
-                <MenuItem Header="About" Command="{Binding HelpAboutMethod}"/>
-            </MenuItem>
-        </Menu>
-        <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,*" Margin="32">
-            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" TextAlignment="Center" Margin="0,6">Welcome to Avalonia UI + CoreRT!</TextBlock>
-            <Image Grid.Row="1" Grid.Column="0" Stretch="None" Source="{Binding DotNetImage}"></Image>
-            <Image Grid.Row="1" Grid.Column="1" Stretch="None" Source="{Binding AvaloniaImage}"></Image>
-            <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Watermark="Type here" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
-        </Grid>
-    </DockPanel>
-  
+	<DockPanel>
+		<Menu DockPanel.Dock="Top">
+			<MenuItem Header="_File">
+				<MenuItem Header="_Exit" Command="{Binding FileExitCommand}"/>
+			</MenuItem>
+			<MenuItem Header="_Theme">
+				<MenuItem Name="menuDLight" Header="Default Light" Command="{Binding DefaultLightMethod}" />
+				<MenuItem Name="menuDDark" Header="Default Dark" Command="{Binding DefaultDarkMethod}"/>
+				<MenuItem Name="menuFLight" Header="Fluent Light" Command="{Binding FluentLightMethod}"/>
+				<MenuItem Name="menuFDark" Header="Fluent Dark" Command="{Binding FluentDarkMethod}"/>
+			</MenuItem>
+			<MenuItem Header="_Help">
+				<MenuItem Header="_About" Command="{Binding HelpAboutMethod}"/>
+			</MenuItem>
+		</Menu>
+		<Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,*" Margin="32">
+			<TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" TextAlignment="Center" Margin="0,6">Welcome to Avalonia UI + CoreRT!</TextBlock>
+			<Image Grid.Row="1" Grid.Column="0" Stretch="None" Source="{Binding DotNetImage}"></Image>
+			<Image Grid.Row="1" Grid.Column="1" Stretch="None" Source="{Binding AvaloniaImage}"></Image>
+			<TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Watermark="Type here" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
+		</Grid>
+	</DockPanel>
+
 </Window>

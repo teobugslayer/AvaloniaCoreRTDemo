@@ -3,51 +3,55 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+
 using Avalonia.Media.Imaging;
+
 using ReactiveUI;
 
 namespace AvaloniaCoreRTDemo
 {
     public class AboutWindowViewModel : ReactiveObject
     {
-        private readonly IBitmap computerImage;
+        private readonly IBitmap _computerImage;
+        private readonly Boolean _darkTheme;
 
-        public IBitmap ComputerImage => computerImage;
-        public String NCores => Environment.ProcessorCount.ToString();
-        public String OS => RuntimeInformation.OSDescription;
-        public String OSArch => RuntimeInformation.OSArchitecture.ToString();
-        public String OSVersion => Environment.OSVersion.ToString();
-        public String ComputerName => Environment.MachineName;
-        public String UserName => Environment.UserName;
-        public String SystemPath => Environment.SystemDirectory;
-        public String CurrentPath => Environment.CurrentDirectory;
-        public String ProcessArch => RuntimeInformation.ProcessArchitecture.ToString();
-        public String RuntimeName => RuntimeInformation.FrameworkDescription;
-        public String RuntimePath => RuntimeEnvironment.GetRuntimeDirectory();
-        public String RuntimeVersion => RuntimeEnvironment.GetSystemVersion();
-        public String FrameworkVersion => Environment.Version.ToString();
+        public IBitmap ComputerImage => _computerImage;
+        public static String NCores => Environment.ProcessorCount.ToString();
+        public static String OS => RuntimeInformation.OSDescription;
+        public static String OSArch => RuntimeInformation.OSArchitecture.ToString();
+        public static String OSVersion => Environment.OSVersion.ToString();
+        public static String ComputerName => Environment.MachineName;
+        public static String UserName => Environment.UserName;
+        public static String SystemPath => Environment.SystemDirectory;
+        public static String CurrentPath => Environment.CurrentDirectory;
+        public static String ProcessArch => RuntimeInformation.ProcessArchitecture.ToString();
+        public static String RuntimeName => RuntimeInformation.FrameworkDescription;
+        public static String RuntimePath => RuntimeEnvironment.GetRuntimeDirectory();
+        public static String RuntimeVersion => RuntimeEnvironment.GetSystemVersion();
+        public static String FrameworkVersion => Environment.Version.ToString();
 
         private String ComputerImageName
         {
             get
             {
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                    return "windows.png";
+                    return !_darkTheme ? "windows.png" : "windows_d.png";
                 else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                    return "macos.png";
+                    return !_darkTheme ? "macos.png" : "macos_d.png";
                 else
-                    return "linux.png";
+                    return !_darkTheme ? "linux.png" : "macos_d.png";
             }
         }
 
-        public AboutWindowViewModel()
+        public AboutWindowViewModel(Boolean darkTheme)
         {
-            this.computerImage = GetImageFromResources(this.ComputerImageName);
+            this._darkTheme = darkTheme;
+            this._computerImage = GetImageFromResources(this.ComputerImageName);
         }
 
         ~AboutWindowViewModel()
         {
-            this.computerImage.Dispose();
+            this._computerImage.Dispose();
         }
 
         private static Bitmap GetImageFromResources(String fileName)

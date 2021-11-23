@@ -12,7 +12,8 @@
   x:Class="AvaloniaCoreRTDemo.AboutWindow"
   Title="About"
   CanResize="false"
-  ShowInTaskbar="False">
+  ShowInTaskbar="False"
+  Icon="avares://AvaloniaCoreRTDemo/Assets/about.ico">
   <Grid
     VerticalAlignment="Top" HorizontalAlignment="Left"
     ColumnDefinitions="Auto,Auto" 

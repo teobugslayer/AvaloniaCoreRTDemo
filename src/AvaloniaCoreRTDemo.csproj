@@ -1,66 +1,66 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
 	<!-- if you want to check exceptions, change this to "Exe" and start your app from the console -->
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-    <Platforms>AnyCPU;x64</Platforms>
-    <ApplicationIcon>app.ico</ApplicationIcon>
+    <Platforms>x64</Platforms>
+    <ApplicationIcon>Assets/app.ico</ApplicationIcon>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <!--https://docs.microsoft.com/en-us/dotnet/core/deploying/trimming/trimming-options-->
+    <TrimmerDefaultAction Condition="'$(TrimLink.ToLower())' == 'true'">link</TrimmerDefaultAction>
+    <DefineConstants Condition="'$(TrimLink.ToLower())' == 'true'">FLUENT</DefineConstants>
   </PropertyGroup>
   
   <PropertyGroup>
     <!-- these can help when debugging weird exceptions especially when reflection is involved. See https://github.com/dotnet/corert/blob/master/Documentation/using-corert/optimizing-corert.md -->  
     <!--RootAllApplicationAssemblies: False -> TrimMode:link See https://github.com/dotnet/runtimelab/issues/597 and https://github.com/dotnet/runtimelab/blob/feature/NativeAOT/docs/using-nativeaot/optimizing.md -->
-	<TrimMode>link</TrimMode>
     <IlcGenerateCompleteTypeMetadata>false</IlcGenerateCompleteTypeMetadata>
     <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
     <IlcDisableUnhandledExceptionExperience>true</IlcDisableUnhandledExceptionExperience>
   </PropertyGroup>
-    
+
   <ItemGroup Condition="$(RuntimeIdentifier.StartsWith('win'))">
     <!-- Instruct CoreRT to use this native dependency, required to build Avalonia. This library comes from the Windows SDK. -->
     <NativeLibrary Include="WindowsApp.lib" />
   </ItemGroup>
   
   <ItemGroup>
-    <Compile Update="**\*.xaml.cs">
+    <Compile Update="**/*.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
-    <AvaloniaResource Include="**\*.xaml">
+    <AvaloniaResource Include="**/*.xaml">
       <SubType>Designer</SubType>
     </AvaloniaResource>
-    <AvaloniaResource Include="app.ico" />
-    <EmbeddedResource Include="linux.png" />
-    <EmbeddedResource Include="macos.png" />
-    <EmbeddedResource Include="windows.png" />
+	<AvaloniaResource Include="Images/**" />
+	<AvaloniaResource Include="Assets/**" />
+	<None Remove="Assets\about.ico" />
+    <EmbeddedResource Include="Images/macos.png" />
+    <EmbeddedResource Include="Images/windows.png" />
+    <EmbeddedResource Include="Images/linux_d.png" />
+    <EmbeddedResource Include="Images/macos_d.png" />
+    <EmbeddedResource Include="Images/windows_d.png" />	
+    <None Update="avalonia.png" CopyToPublishDirectory="PreserveNewest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="dotnet.png" CopyToPublishDirectory="PreserveNewest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>	  
+    <None Update="Assets/app.icns" CopyToPublishDirectory="PreserveNewest" Condition="$(RuntimeIdentifier.StartsWith('osx'))">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
-  
+    
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.10.10" />
 	<!--Avalonia.Desktop 0.10.8 is used due to an issue on macOS with latest version-->
     <PackageReference Include="Avalonia.Desktop" Version="0.10.8" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.10" />
     <PackageReference Include="Dotnet.Bundle" Version="*" Condition="$(RuntimeIdentifier.StartsWith('osx'))" />
-    <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="7.0.0-*" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <!-- Avalonia relies heavily on reflection. Describe types reflected upon here. -->
-    <RdXmlFile Include="rd.xml" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <None Update="avalonia.png" CopyToPublishDirectory="PreserveNewest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="dotnet.png" CopyToPublishDirectory="PreserveNewest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="app.icns" CopyToPublishDirectory="PreserveNewest" Condition="$(RuntimeIdentifier.StartsWith('osx'))">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   
   <PropertyGroup Condition="$(RuntimeIdentifier.StartsWith('osx'))">
+    <!-- Information for Dotnet.Bundle to Generate macOS app-->
     <CFBundleName>$(AssemblyName)</CFBundleName>
     <CFBundleDisplayName>$(AssemblyName)</CFBundleDisplayName>
     <CFBundleIdentifier>com.$(username).$(AssemblyName)</CFBundleIdentifier>
@@ -68,7 +68,7 @@
     <CFBundlePackageType>APPL</CFBundlePackageType>
     <!--<CFBundleSignature>????</CFBundleSignature>-->
     <CFBundleExecutable>$(AssemblyName)</CFBundleExecutable>
-    <CFBundleIconFile>app.icns</CFBundleIconFile>
+    <CFBundleIconFile>Assets/app.icns</CFBundleIconFile>
     <NSPrincipalClass>NSApplication</NSPrincipalClass>
     <NSHighResolutionCapable>true</NSHighResolutionCapable>
     <CFBundleShortVersionString>1.0</CFBundleShortVersionString>
@@ -76,12 +76,11 @@
     <NSRequiresAquaSystemAppearance>true</NSRequiresAquaSystemAppearance>
   </PropertyGroup>
   
-  <Target Name="ConfigureTrimming" BeforeTargets="PrepareForILLink">
-    <ItemGroup>
-      <ManagedAssemblyToLink>
-        <TrimMode>link</TrimMode>
-      </ManagedAssemblyToLink>
-    </ItemGroup>
-  </Target>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="7.0.0-*" />
+    <!-- Avalonia relies heavily on reflection. Describe types reflected upon here. -->
+    <RdXmlFile Include="rd.xml" />
+	<RuntimeHostConfigurationOption Include="Switch.System.Reflection.Assembly.SimulatedCallingAssembly" Value="true" />
+  </ItemGroup>
   
 </Project>

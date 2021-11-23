@@ -25,9 +25,9 @@ jobs:
       with:
         name: Linux-Artifact
         path: |
-          ./src/bin/Release/net6.0/linux-x64/publish/*.bin
-          ./src/bin/Release/net6.0/linux-x64/publish/*.so
-          ./src/bin/Release/net6.0/linux-x64/publish/*.png
+          ./src/bin/x64/Release/net6.0/linux-x64/publish/*.bin
+          ./src/bin/x64/Release/net6.0/linux-x64/publish/*.so
+          ./src/bin/x64/Release/net6.0/linux-x64/publish/*.png
   build-on-windows:
     runs-on: windows-latest
     steps:
@@ -42,9 +42,9 @@ jobs:
       with:
         name: Windows-Artifact
         path: |
-          .\src\bin\Release\net6.0\win-x64\publish\*.exe
-          .\src\bin\Release\net6.0\win-x64\publish\*.dll
-          .\src\bin\Release\net6.0\win-x64\publish\*.png
+          .\src\bin\x64\Release\net6.0\win-x64\publish\*.exe
+          .\src\bin\x64\Release\net6.0\win-x64\publish\*.dll
+          .\src\bin\x64\Release\net6.0\win-x64\publish\*.png
   build-on-macos:
     runs-on: macos-latest
     steps:
@@ -57,7 +57,7 @@ jobs:
       run: |
         sudo chmod +x ./test.command
         ./test.command
-        cd ./src/bin/Release/net6.0/osx-x64/publish
+        cd ./src/bin/x64/Release/net6.0/osx-x64/publish
         zip -r -0 macOS-Artifact.zip *.app
         mv *.zip ../../../../../../.
     - uses: actions/upload-artifact@v2
