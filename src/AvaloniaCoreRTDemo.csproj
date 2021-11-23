@@ -9,7 +9,7 @@
     <InvariantGlobalization>true</InvariantGlobalization>
     <!--https://docs.microsoft.com/en-us/dotnet/core/deploying/trimming/trimming-options-->
     <TrimmerDefaultAction Condition="'$(TrimLink.ToLower())' == 'true'">link</TrimmerDefaultAction>
-    <DefineConstants Condition="'$(TrimLink.ToLower())' == 'true'">FLUENT</DefineConstants>
+    <DefineConstants Condition="'$(TrimLink.ToLower())' != 'true'">FLUENT</DefineConstants>
   </PropertyGroup>
   
   <PropertyGroup>

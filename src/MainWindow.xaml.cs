@@ -32,7 +32,7 @@ namespace AvaloniaCoreRTDemo
             this.DefaultDark = this.Get<MenuItem>("menuDDark");
             this.FluentLight = this.Get<MenuItem>("menuFLight");
             this.FluentDark = this.Get<MenuItem>("menuFDark");
-#if FLUENT
+#if !FLUENT
             this.FluentLight.IsEnabled = false;
             this.FluentDark.IsEnabled = false;
 #endif
