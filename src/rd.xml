@@ -6,9 +6,11 @@
 	<!-- these are needed when you show images and draw text -->
 	<Assembly Name="Avalonia.Animation" Dynamic="Required All"></Assembly>
 	<Assembly Name="Avalonia.Themes.Default" Dynamic="Required All"></Assembly>
-	<Assembly Name="Avalonia.Themes.Fluent" Dynamic="Required All"></Assembly>
 	<Assembly Name="Avalonia.Visuals" Dynamic="Required All"></Assembly>
 	<Assembly Name="SkiaSharp" Dynamic="Required All"></Assembly>
+	
+	<!-- To support Fluent themes trimming the final assembly we need to add this entry -->
+	<Assembly Name="Avalonia.Themes.Fluent" Dynamic="Required All"></Assembly>
 	
 	<!-- Not known if and when you need these:
 	<Assembly Name="Avalonia.Controls" Dynamic="Required All"></Assembly>
