@@ -6,6 +6,7 @@
 	<!-- these are needed when you show images and draw text -->
 	<Assembly Name="Avalonia.Animation" Dynamic="Required All"></Assembly>
 	<Assembly Name="Avalonia.Themes.Default" Dynamic="Required All"></Assembly>
+	<Assembly Name="Avalonia.Themes.Fluent" Dynamic="Required All"></Assembly>
 	<Assembly Name="Avalonia.Visuals" Dynamic="Required All"></Assembly>
 	<Assembly Name="SkiaSharp" Dynamic="Required All"></Assembly>
 	
