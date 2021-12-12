@@ -102,8 +102,8 @@
     <AvaloniaXaml Remove="Windows/MainWindowMacOS.axaml" />
     <Compile Remove="Windows/MainWindowMacOS.axaml.cs" />
   </ItemGroup>
-    <!--OSX only xaml-->
-    <ItemGroup Condition="'$(IsOSX)'=='true'">
+  <!--OSX only xaml-->
+  <ItemGroup Condition="'$(IsOSX)'=='true'">
     <Compile Update="Windows/MainWindowMacOS.axaml.cs">
       <DependentUpon>MainWindowMacOS.axaml</DependentUpon>
     </Compile>
