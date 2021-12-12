@@ -1,0 +1,66 @@
+name: NativeAOT Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-on-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup NativeAOT pre-requisites
+      run: sudo apt-get install clang zlib1g-dev libkrb5-dev --assume-yes
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Publish
+      run: |
+        sudo chmod +x ./test.sh
+        ./test.sh
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Linux-Artifact
+        path: |
+          ./src/bin/x64/Release/net6.0/linux-x64/publish/*.bin
+          ./src/bin/x64/Release/net6.0/linux-x64/publish/*.so
+          ./src/bin/x64/Release/net6.0/linux-x64/publish/*.png
+  build-on-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Publish
+      run: ./test.cmd
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Windows-Artifact
+        path: |
+          .\src\bin\x64\Release\net6.0\win-x64\publish\*.exe
+          .\src\bin\x64\Release\net6.0\win-x64\publish\*.dll
+          .\src\bin\x64\Release\net6.0\win-x64\publish\*.png
+  build-on-macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Publish
+      run: |
+        sudo chmod +x ./test.command
+        ./test.command
+        cd ./src/bin/x64/Release/net6.0/osx-x64/publish
+        zip -r -0 macOS-Artifact.zip *.app
+        mv *.zip ../../../../../../../.
+    - uses: actions/upload-artifact@v2
+      with:
+        name: macOS-Artifact
+        path: macOS-Artifact.zip
