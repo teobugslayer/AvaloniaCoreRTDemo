@@ -55,7 +55,7 @@ namespace AvaloniaCoreRTDemo.Windows.ViewModels
         public void DefaultDarkMethod() => this.ChangeTheme(ApplicationTheme.DefaultDark);
         public void FluentLightMethod() => this.ChangeTheme(ApplicationTheme.FluentLight);
         public void FluentDarkMethod() => this.ChangeTheme(ApplicationTheme.FluentDark);
-        public void HelpAboutMethod() => base.RunHelpAbout(this._window);
+        public override void HelpAboutMethod() => base.RunHelpAbout(this._window);
 
         private void RunFileExit()
             => Environment.Exit(0);

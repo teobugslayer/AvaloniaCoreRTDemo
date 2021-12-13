@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Avalonia.Controls;
 
@@ -25,6 +21,8 @@ namespace AvaloniaCoreRTDemo.Windows.ViewModels
 
         public MainViewModelBase(IThemeSwitch window)
             => this._themeSwitch = window;
+
+        public abstract void HelpAboutMethod();
 
         protected async void RunHelpAbout(Window currentWindow)
         {

@@ -1,3 +1,4 @@
+
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -30,12 +31,7 @@ namespace AvaloniaCoreRTDemo
             this.InitializeThemes();
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = 
-#if !OSX
-                new MainWindow();
-#else
-                new MainWindowMacOS();
-#endif
+                desktop.MainWindow = !Utilities.IsOSX ? new MainWindow() : new MainWindowMacOS();
                 this.DataContext = desktop.MainWindow.DataContext;
             }
             base.OnFrameworkInitializationCompleted();

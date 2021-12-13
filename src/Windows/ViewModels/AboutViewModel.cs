@@ -1,7 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
 
 using Avalonia.Media.Imaging;
@@ -34,35 +31,24 @@ namespace AvaloniaCoreRTDemo.Windows.ViewModels
         {
             get
             {
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                    return !_darkTheme ? "windows.png" : "windows_d.png";
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                    return !_darkTheme ? "macos.png" : "macos_d.png";
+                if (Utilities.IsWindows)
+                    return !this._darkTheme ? "windows.png" : "windows_d.png";
+                else if (Utilities.IsOSX)
+                    return !this._darkTheme ? "macos.png" : "macos_d.png";
                 else
-                    return !_darkTheme ? "linux.png" : "linux_d.png";
+                    return !this._darkTheme ? "linux.png" : "linux_d.png";
             }
         }
 
         public AboutViewModel(Boolean darkTheme)
         {
             this._darkTheme = darkTheme;
-            this._computerImage = GetImageFromResources(this.ComputerImageName);
+            this._computerImage = Utilities.GetImageFromResources(this.ComputerImageName);
         }
 
         ~AboutViewModel()
         {
             this._computerImage.Dispose();
-        }
-
-        private static Bitmap GetImageFromResources(String fileName)
-        {
-            Assembly asm = Assembly.GetExecutingAssembly();
-            String resourceName = asm.GetManifestResourceNames().FirstOrDefault(str => str.EndsWith(fileName));
-            if (resourceName != null)
-                using (Stream bitmapStream = asm.GetManifestResourceStream(resourceName))
-                    return new Bitmap(bitmapStream);
-            else
-                return default;
         }
     }
 }

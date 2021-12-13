@@ -1,9 +1,8 @@
-﻿
-using Avalonia;
+﻿using Avalonia;
 
 namespace AvaloniaCoreRTDemo
 {
-    class Program
+    public static class Program
     {
         // Initialization code. Don't use any Avalonia, third-party APIs or any
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
@@ -13,9 +12,10 @@ namespace AvaloniaCoreRTDemo
         // Avalonia configuration, don't remove; also used by visual designer.
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>().UsePlatformDetect()
-#if OSX
-            .UseAvaloniaNative()
-#endif
+            .UseAvaloniaNativeOSX()
             .LogToTrace();
+
+        private static AppBuilder UseAvaloniaNativeOSX(this AppBuilder appBuilder)
+            => Utilities.IsOSX ? appBuilder.UseAvaloniaNative() : appBuilder;
     }
 }
