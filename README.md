@@ -42,4 +42,4 @@ This project is configured to help you debug issues with publishing. Before publ
 
 For any change in this repo we will build the artifact for Windows-x64, Linux-x64 and macOS-x64.
 You can download them from workflows run results.
-For run the artifact on macOS make sure to allow the application inSystem Preferences, Security & Privacy, General.
+For run the artifact on macOS make sure to allow the application in System Preferences, Security & Privacy, General.
