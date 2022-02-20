@@ -1,21 +1,21 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Shapes;
 using Avalonia.Markup.Xaml;
 
-namespace AvaloniaCoreRTDemo
+using AvaloniaCoreRTDemo.Controls.ViewModels;
+
+namespace AvaloniaCoreRTDemo.Controls
 {
-    public class MainWindow : Window
+    public sealed partial class MainControl : UserControl
     {
-        public MainWindow()
+        public MainControl()
         {
             InitializeComponent();
-            this.DataContext = new MainWindowViewModel(this);
         }
 
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+            this.DataContext = new MainViewModel();
         }
     }
 }

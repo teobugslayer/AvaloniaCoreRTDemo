@@ -1,0 +1,26 @@
+<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:controls="clr-namespace:AvaloniaCoreRTDemo.Controls" mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" x:Class="AvaloniaCoreRTDemo.Windows.MainWindowMacOS"
+        Width="640" Height="480" WindowStartupLocation="CenterScreen" Title="AvaloniaCoreRTDemo" Icon="avares://AvaloniaCoreRTDemo/Assets/app.ico" MinWidth="400" MinHeight="350">
+	<controls:MainControl/>
+	<NativeMenu.Menu>
+		<NativeMenu>
+			<NativeMenuItem Header="File">
+				<NativeMenuItem.Menu>
+					<NativeMenu>
+						<NativeMenuItem Header="Exit" Gesture="cmd+e" Command="{Binding FileExitCommand}"/>
+					</NativeMenu>
+				</NativeMenuItem.Menu>
+			</NativeMenuItem>
+			<NativeMenuItem Header="Theme">
+				<NativeMenuItem.Menu>
+					<NativeMenu>
+						<NativeMenuItem Header="Default Light" IsEnabled="{Binding DefaultLightEnabled}" Command="{Binding DefaultLightMethod}"/>
+						<NativeMenuItem Header="Default Dark" IsEnabled="{Binding DefaultDarkEnabled}" Command="{Binding DefaultDarkMethod}"/>
+						<NativeMenuItem Header="Fluent Light" IsEnabled="{Binding FluentLightEnabled}" Command="{Binding FluentLightMethod}"/>
+						<NativeMenuItem Header="Fluent Dark" IsEnabled="{Binding FluentDarkEnabled}" Command="{Binding FluentDarkMethod}"/>
+					</NativeMenu>
+				</NativeMenuItem.Menu>
+			</NativeMenuItem>
+		</NativeMenu>
+	</NativeMenu.Menu>
+</Window>

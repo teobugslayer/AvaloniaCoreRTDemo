@@ -37,3 +37,9 @@ Feel free to use this sample as a base for your projects.
 When developing, keep in mind that Avalonia uses Reflection extensively. NativeAOT, being an AOT compiler, needs your help to get reflection right. Refer to `rd.xml` file in the solution. In it, you describe all assemblies and types which your app would potentially reflect over. For more information, see [Reflection in AOT mode](https://github.com/dotnet/runtimelab/blob/feature/NativeAOT/docs/using-nativeaot/reflection-in-aot-mode.md)
 
 This project is configured to help you debug issues with publishing. Before publishing, check the CSPROJ file and modify the various Ilc* properties according to [Optimizing programs targeting Native AOT](https://github.com/dotnet/runtimelab/blob/feature/NativeAOT/docs/using-nativeaot/optimizing.md) document.
+
+## Artifact test
+
+For any change in this repo we will build the artifact for Windows-x64, Linux-x64 and macOS-x64.
+You can download them from workflows run results.
+For run the artifact on macOS make sure to allow the application in System Preferences, Security & Privacy, General.
