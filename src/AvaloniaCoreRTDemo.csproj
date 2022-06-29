@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <!-- if you want to check exceptions, change this to "Exe" and start your app from the console -->
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <Platforms>x64</Platforms>
     <ApplicationIcon>Assets/app.ico</ApplicationIcon>
@@ -43,12 +43,12 @@
   </ItemGroup>
     
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.14" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.14" />
-    <PackageReference Include="Avalonia.Native" Version="0.10.14" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.14" />
+    <PackageReference Include="Avalonia" Version="0.10.15" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.15" />
+    <PackageReference Include="Avalonia.Native" Version="0.10.15" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.15" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.14" />
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.15" />
     <!--Condition below is needed to generate macOS App only.-->
     <PackageReference Include="Dotnet.Bundle" Version="*" Condition="$(RuntimeIdentifier.StartsWith('osx'))" />
   </ItemGroup>

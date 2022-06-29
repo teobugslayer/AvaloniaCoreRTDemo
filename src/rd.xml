@@ -1,13 +1,14 @@
 ﻿<Directives>
-  <Application>
+	<Application>
 	<!-- main app assembly provides types which needs to be reflected upon -->
 	<Assembly Name="AvaloniaCoreRTDemo" Dynamic="Required All"></Assembly>
-  
+	
 	<!-- these are needed when you show images and draw text -->
 	<Assembly Name="Avalonia.Animation">
 		<Type Name="Avalonia.Animation.Easings.QuadraticEaseIn" Dynamic="Required All" />
 		<Type Name="Avalonia.Animation.Easings.QuadraticEaseOut" Dynamic="Required All" />
 		<Type Name="Avalonia.Animation.Easings.CubicEaseOut" Dynamic="Required All" />
+		<Type Name="Avalonia.Animation.Easings.LinearEasing" Dynamic="Required All" />
 	</Assembly>
 	<Assembly Name="Avalonia.Themes.Default" Dynamic="Required All"></Assembly>
 	<Assembly Name="Avalonia.Visuals" Dynamic="Required All">
@@ -43,5 +44,5 @@
 	<Assembly Name="System.Reactive" Dynamic="Required All"></Assembly>
 	<Assembly Name="Splat" Dynamic="Required All"></Assembly>
 	-->
-  </Application>
+	</Application>
 </Directives>
