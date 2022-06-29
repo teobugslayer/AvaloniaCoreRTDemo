@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <!-- if you want to check exceptions, change this to "Exe" and start your app from the console -->
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <Platforms>x64</Platforms>
     <ApplicationIcon>Assets/app.ico</ApplicationIcon>
