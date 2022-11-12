@@ -3,12 +3,11 @@
   <PropertyGroup>
     <!-- if you want to check exceptions, change this to "Exe" and start your app from the console -->
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <Platforms>x64</Platforms>
     <ApplicationIcon>Assets/app.ico</ApplicationIcon>
     <InvariantGlobalization>true</InvariantGlobalization>
-    <!--https://docs.microsoft.com/en-us/dotnet/core/deploying/trimming/trimming-options-->
-    <TrimmerDefaultAction>link</TrimmerDefaultAction>
+    <PublishAot>true</PublishAot>
 
     <IsWindows Condition="$([MSBuild]::IsOSPlatform('Windows'))">true</IsWindows>
     <IsLinux Condition="$([MSBuild]::IsOSPlatform('Linux'))">true</IsLinux>
@@ -21,12 +20,8 @@
     <IlcGenerateCompleteTypeMetadata>false</IlcGenerateCompleteTypeMetadata>
     <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
     <IlcDisableUnhandledExceptionExperience>true</IlcDisableUnhandledExceptionExperience>
+    <StripSymbols>true</StripSymbols>
   </PropertyGroup>
-
-  <!-- Instruct NativeAOT to use this native dependency, required to build Avalonia. This library comes from the Windows SDK. -->
-  <ItemGroup Condition="'$(IsWindows)'=='true'">
-    <NativeLibrary Include="WindowsApp.lib" />
-  </ItemGroup>
   
   <ItemGroup>
     <AvaloniaResource Include="Assets/**" />
@@ -45,13 +40,13 @@
   </ItemGroup>
     
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.0.0-preview4" />
-    <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview4" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0-preview4" />
-    <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-preview4" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview4" />
+    <PackageReference Include="Avalonia" Version="11.0.999-cibuild0026098-beta" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.999-cibuild0026098-beta" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.999-cibuild0026098-beta" />
+    <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.999-cibuild0026098-beta" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.999-cibuild0026098-beta" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.0-preview4" />
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.999-cibuild0026098-beta" />
     <!--Condition below is needed to generate macOS App only.-->
     <PackageReference Include="Dotnet.Bundle" Version="*" Condition="$(RuntimeIdentifier.StartsWith('osx'))" />
   </ItemGroup>
@@ -72,12 +67,5 @@
     <!-- Optional -->
     <NSRequiresAquaSystemAppearance>true</NSRequiresAquaSystemAppearance>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="7.0.0-*" />
-    <!-- Avalonia relies heavily on reflection. Describe types reflected upon here. -->
-    <RdXmlFile Include="rd.xml" />
-    <RuntimeHostConfigurationOption Include="Switch.System.Reflection.Assembly.SimulatedCallingAssembly" Value="true" />
-  </ItemGroup>
 
 </Project>
