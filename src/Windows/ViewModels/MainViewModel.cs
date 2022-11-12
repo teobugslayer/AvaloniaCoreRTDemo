@@ -12,54 +12,21 @@ namespace AvaloniaCoreRTDemo.Windows.ViewModels
     {
         private readonly TWindow _window;
 
-        private Boolean _defaultLightEnable = true;
-        private Boolean _defaultDarkEnable = true;
-        private Boolean _fluentLightEnable = true;
-        private Boolean _fluentDarkEnable = true;
-
-        public Boolean DefaultLightEnabled
-        {
-            get => this._defaultLightEnable;
-            set => this.RaiseAndSetIfChanged(ref this._defaultLightEnable, value);
-        }
-
-        public Boolean DefaultDarkEnabled
-        {
-            get => this._defaultDarkEnable;
-            set => this.RaiseAndSetIfChanged(ref this._defaultDarkEnable, value);
-        }
-
-        public Boolean FluentLightEnabled
-        {
-            get => this._fluentLightEnable;
-            set => this.RaiseAndSetIfChanged(ref this._fluentLightEnable, value);
-        }
-
-        public Boolean FluentDarkEnabled
-        {
-            get => this._fluentDarkEnable;
-            set => this.RaiseAndSetIfChanged(ref this._fluentDarkEnable, value);
-        }
-
-        public ReactiveCommand<Unit, Unit> FileExitCommand { get; }
-
         public MainViewModel(TWindow window)
             : base(window.ThemeSwitch)
         {
             this._window = window;
-            this.FileExitCommand = ReactiveCommand.Create(RunFileExit);
             this.ChangeTheme(window.ThemeSwitch.Current);
         }
 
-        public void DefaultLightMethod() => this.ChangeTheme(ApplicationTheme.SimpleLight);
-        public void DefaultDarkMethod() => this.ChangeTheme(ApplicationTheme.SimpleDark);
-        public void FluentLightMethod() => this.ChangeTheme(ApplicationTheme.FluentLight);
-        public void FluentDarkMethod() => this.ChangeTheme(ApplicationTheme.FluentDark);
+
         public override void HelpAboutMethod() => base.RunHelpAbout(this._window);
 
-        private void RunFileExit()
-            => Environment.Exit(0);
-
+        public override void DefaultLightMethod() => this.ChangeTheme(ApplicationTheme.SimpleLight);
+        public override void DefaultDarkMethod() => this.ChangeTheme(ApplicationTheme.SimpleDark);
+        public override void FluentLightMethod() => this.ChangeTheme(ApplicationTheme.FluentLight);
+        public override void FluentDarkMethod() => this.ChangeTheme(ApplicationTheme.FluentDark);
+        
         private void ChangeTheme(ApplicationTheme theme)
         {
             this.DefaultLightEnabled = theme != ApplicationTheme.SimpleLight && theme != ApplicationTheme.FluentLight;

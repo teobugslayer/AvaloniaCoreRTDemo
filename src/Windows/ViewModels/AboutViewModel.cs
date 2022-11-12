@@ -13,19 +13,19 @@ namespace AvaloniaCoreRTDemo.Windows.ViewModels
         private readonly Boolean _darkTheme;
 
         public IBitmap ComputerImage => _computerImage;
-        public static String NCores => Environment.ProcessorCount.ToString();
-        public static String OS => RuntimeInformation.OSDescription;
-        public static String OSArch => RuntimeInformation.OSArchitecture.ToString();
-        public static String OSVersion => Environment.OSVersion.ToString();
-        public static String ComputerName => Environment.MachineName;
-        public static String UserName => Environment.UserName;
-        public static String SystemPath => Environment.SystemDirectory;
-        public static String CurrentPath => Environment.CurrentDirectory;
-        public static String ProcessArch => RuntimeInformation.ProcessArchitecture.ToString();
-        public static String RuntimeName => RuntimeInformation.FrameworkDescription;
-        public static String RuntimePath => RuntimeEnvironment.GetRuntimeDirectory();
-        public static String RuntimeVersion => RuntimeEnvironment.GetSystemVersion();
-        public static String FrameworkVersion => Environment.Version.ToString();
+        public String NCores => Environment.ProcessorCount.ToString();
+        public String OS => RuntimeInformation.OSDescription;
+        public String OSArch => RuntimeInformation.OSArchitecture.ToString();
+        public String OSVersion => Environment.OSVersion.ToString();
+        public String ComputerName => Environment.MachineName;
+        public String UserName => Environment.UserName;
+        public String SystemPath => Environment.SystemDirectory;
+        public String CurrentPath => Environment.CurrentDirectory;
+        public String ProcessArch => RuntimeInformation.ProcessArchitecture.ToString();
+        public String RuntimeName => RuntimeInformation.FrameworkDescription;
+        public String RuntimePath => RuntimeEnvironment.GetRuntimeDirectory();
+        public String RuntimeVersion => RuntimeEnvironment.GetSystemVersion();
+        public String FrameworkVersion => Environment.Version.ToString();
 
         private String ComputerImageName
         {
