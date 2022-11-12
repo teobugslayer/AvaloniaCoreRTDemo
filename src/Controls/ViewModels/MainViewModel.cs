@@ -18,12 +18,9 @@ namespace AvaloniaCoreRTDemo.Controls.ViewModels
 
         public MainViewModel()
         {
-            this._dotNetImage = Utilities.GetImageFromFile(GetImageFullPath("dotnet.png"));
-            this._avaloniaImage = Utilities.GetImageFromFile(GetImageFullPath("avalonia.png"));
+            this._dotNetImage = Utilities.GetImageFromFile("dotnet.png");
+            this._avaloniaImage = Utilities.GetImageFromFile("avalonia.png");
         }
-
-        private static String GetImageFullPath(String fileName)
-            => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
 
         ~MainViewModel()
         {

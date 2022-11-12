@@ -4,8 +4,8 @@ namespace AvaloniaCoreRTDemo
 {
     public enum ApplicationTheme : Byte
     {
-        DefaultLight = 0,
-        DefaultDark = 1,
+        SimpleLight = 0,
+        SimpleDark = 1,
         FluentLight = 2,
         FluentDark = 3,
     }

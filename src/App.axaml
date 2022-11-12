@@ -1,18 +1,8 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="AvaloniaCoreRTDemo.App">
-	<NativeMenu.Menu>
-		<NativeMenu>
-			<NativeMenuItem Header="About" Gesture="cmd+b" IsEnabled="{Binding AboutEnabled}" Command="{Binding HelpAboutMethod}"/>
-		</NativeMenu>
-	</NativeMenu.Menu>	
-	<Application.Styles>		
-		<StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseDark.xaml"/>
-		<StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>
-		<StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
-	</Application.Styles>	
 	<Application.Resources>
-		<FluentTheme x:Key="fluentLight" Mode="Light" />
-		<FluentTheme x:Key="fluentDark" Mode="Dark" />
+		<FluentTheme x:Key="fluentTheme" Mode="Light" />
+		<SimpleTheme x:Key="simpleTheme" Mode="Light" />
 	</Application.Resources>
 </Application>

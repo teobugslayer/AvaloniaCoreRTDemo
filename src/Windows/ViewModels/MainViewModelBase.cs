@@ -41,7 +41,7 @@ namespace AvaloniaCoreRTDemo.Windows.ViewModels
         private static Boolean IsDarkTheme(ApplicationTheme? theme)
             => theme switch
             {
-                ApplicationTheme.DefaultDark => true,
+                ApplicationTheme.SimpleDark => true,
                 ApplicationTheme.FluentDark => true,
                 _ => false,
             };

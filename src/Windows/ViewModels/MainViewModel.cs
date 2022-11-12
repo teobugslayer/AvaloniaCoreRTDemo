@@ -51,8 +51,8 @@ namespace AvaloniaCoreRTDemo.Windows.ViewModels
             this.ChangeTheme(window.ThemeSwitch.Current);
         }
 
-        public void DefaultLightMethod() => this.ChangeTheme(ApplicationTheme.DefaultLight);
-        public void DefaultDarkMethod() => this.ChangeTheme(ApplicationTheme.DefaultDark);
+        public void DefaultLightMethod() => this.ChangeTheme(ApplicationTheme.SimpleLight);
+        public void DefaultDarkMethod() => this.ChangeTheme(ApplicationTheme.SimpleDark);
         public void FluentLightMethod() => this.ChangeTheme(ApplicationTheme.FluentLight);
         public void FluentDarkMethod() => this.ChangeTheme(ApplicationTheme.FluentDark);
         public override void HelpAboutMethod() => base.RunHelpAbout(this._window);
@@ -62,8 +62,8 @@ namespace AvaloniaCoreRTDemo.Windows.ViewModels
 
         private void ChangeTheme(ApplicationTheme theme)
         {
-            this.DefaultLightEnabled = theme != ApplicationTheme.DefaultLight && theme != ApplicationTheme.FluentLight;
-            this.DefaultDarkEnabled = theme != ApplicationTheme.DefaultDark && theme != ApplicationTheme.FluentDark;
+            this.DefaultLightEnabled = theme != ApplicationTheme.SimpleLight && theme != ApplicationTheme.FluentLight;
+            this.DefaultDarkEnabled = theme != ApplicationTheme.SimpleDark && theme != ApplicationTheme.FluentDark;
             this.FluentLightEnabled = theme != ApplicationTheme.FluentLight;
             this.FluentDarkEnabled = theme != ApplicationTheme.FluentDark;
             this._window.ThemeSwitch?.ChangeTheme(theme);
