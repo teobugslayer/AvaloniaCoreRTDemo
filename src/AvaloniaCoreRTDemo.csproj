@@ -42,6 +42,7 @@
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.0.999-cibuild0026098-beta" />
     <PackageReference Include="Avalonia.Desktop" Version="11.0.999-cibuild0026098-beta" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.999-cibuild0026098-beta" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.999-cibuild0026098-beta" />
     <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.999-cibuild0026098-beta" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.999-cibuild0026098-beta" />

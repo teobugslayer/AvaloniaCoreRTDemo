@@ -52,19 +52,19 @@ namespace AvaloniaCoreRTDemo
             {
                 case ApplicationTheme.SimpleLight:
                     this._simpleTheme.Mode = SimpleThemeMode.Light;
-                    this.Styles[0] = this._simpleTheme;
+                    this.Styles[1] = this._simpleTheme;
                     break;
                 case ApplicationTheme.SimpleDark:
                     this._simpleTheme.Mode = SimpleThemeMode.Dark;
-                    this.Styles[0] = this._simpleTheme;
+                    this.Styles[1] = this._simpleTheme;
                     break;
                 case ApplicationTheme.FluentLight:
                     this._fluentTheme.Mode = FluentThemeMode.Light;
-                    this.Styles[0] = this._fluentTheme;
+                    this.Styles[1] = this._fluentTheme;
                     break;
                 case ApplicationTheme.FluentDark:
                     this._fluentTheme.Mode = FluentThemeMode.Dark;
-                    this.Styles[0] = this._fluentTheme;
+                    this.Styles[1] = this._fluentTheme;
                     break;
             }
         }
