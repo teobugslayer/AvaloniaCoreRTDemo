@@ -1,4 +1,5 @@
 
+using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -14,6 +15,8 @@ namespace AvaloniaCoreRTDemo
     {
         private FluentTheme _fluentTheme;
         private SimpleTheme _simpleTheme;
+        private IStyle _fluentDataGrid;
+        private IStyle _simpleDataGrid;
 
         private ApplicationTheme _currentTheme;
 
@@ -38,7 +41,10 @@ namespace AvaloniaCoreRTDemo
         {
             this._fluentTheme = (FluentTheme)this.Resources["fluentTheme"]!;
             this._simpleTheme = (SimpleTheme)this.Resources["simpleTheme"]!;
+            this._fluentDataGrid = (IStyle)this.Resources["fluentDataGrid"]!;
+            this._simpleDataGrid = (IStyle)this.Resources["simpleDataGrid"]!;
             Styles.Add(_fluentTheme);
+            Styles.Add(_fluentDataGrid);
 
             this._currentTheme = ApplicationTheme.FluentLight;
         }
@@ -47,25 +53,48 @@ namespace AvaloniaCoreRTDemo
 
         void IThemeSwitch.ChangeTheme(ApplicationTheme theme)
         {
+            var themeChanged = theme switch
+            {
+                ApplicationTheme.SimpleLight => _currentTheme is ApplicationTheme.FluentDark or ApplicationTheme.FluentLight,
+                ApplicationTheme.SimpleDark => _currentTheme is ApplicationTheme.FluentDark or ApplicationTheme.FluentLight,
+                ApplicationTheme.FluentLight => _currentTheme is ApplicationTheme.SimpleLight or ApplicationTheme.SimpleDark,
+                ApplicationTheme.FluentDark => _currentTheme is ApplicationTheme.SimpleLight or ApplicationTheme.SimpleDark,
+                _ => throw new ArgumentOutOfRangeException(nameof(theme), theme, null)
+            };
+            
             this._currentTheme = theme;
             switch (theme)
             {
                 case ApplicationTheme.SimpleLight:
                     this._simpleTheme.Mode = SimpleThemeMode.Light;
-                    this.Styles[1] = this._simpleTheme;
+                    this.Styles[0] = this._simpleTheme;
+                    this.Styles[1] = this._simpleDataGrid;
                     break;
                 case ApplicationTheme.SimpleDark:
                     this._simpleTheme.Mode = SimpleThemeMode.Dark;
-                    this.Styles[1] = this._simpleTheme;
+                    this.Styles[0] = this._simpleTheme;
+                    this.Styles[1] = this._simpleDataGrid;
                     break;
                 case ApplicationTheme.FluentLight:
                     this._fluentTheme.Mode = FluentThemeMode.Light;
-                    this.Styles[1] = this._fluentTheme;
+                    this.Styles[0] = this._fluentTheme;
+                    this.Styles[1] = this._fluentDataGrid;
                     break;
                 case ApplicationTheme.FluentDark:
                     this._fluentTheme.Mode = FluentThemeMode.Dark;
-                    this.Styles[1] = this._fluentTheme;
+                    this.Styles[0] = this._fluentTheme;
+                    this.Styles[1] = this._fluentDataGrid;
                     break;
+            }
+
+            if (themeChanged && ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                var oldWindow = desktop.MainWindow;
+                var newWindow = new MainWindow();
+                desktop.MainWindow = newWindow;
+                newWindow.Show();
+                oldWindow.Close();
+                this.DataContext = desktop.MainWindow.DataContext;
             }
         }
     }
