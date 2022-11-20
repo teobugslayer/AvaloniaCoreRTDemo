@@ -29,8 +29,8 @@ namespace AvaloniaCoreRTDemo.Windows.ViewModels
         
         private void ChangeTheme(ApplicationTheme theme)
         {
-            this.DefaultLightEnabled = theme != ApplicationTheme.SimpleLight && theme != ApplicationTheme.FluentLight;
-            this.DefaultDarkEnabled = theme != ApplicationTheme.SimpleDark && theme != ApplicationTheme.FluentDark;
+            this.DefaultLightEnabled = theme != ApplicationTheme.SimpleLight;
+            this.DefaultDarkEnabled = theme != ApplicationTheme.SimpleDark;
             this.FluentLightEnabled = theme != ApplicationTheme.FluentLight;
             this.FluentDarkEnabled = theme != ApplicationTheme.FluentDark;
             this._window.ThemeSwitch?.ChangeTheme(theme);
