@@ -7,9 +7,6 @@
         x:DataType="viewModels1:MainViewModelBase">
     <DockPanel>
         <NativeMenuBar DockPanel.Dock="Top" />
-        <StackPanel DockPanel.Dock="Top">
-            <Button Content="About" Command="{Binding HelpAboutMethod}" />
-        </StackPanel>
         <controls:MainControl/>
     </DockPanel>
     <NativeMenu.Menu>
