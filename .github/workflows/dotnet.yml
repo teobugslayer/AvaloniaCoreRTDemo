@@ -16,7 +16,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
     - name: Publish
       run: |
         sudo chmod +x ./test.sh
@@ -25,9 +25,9 @@ jobs:
       with:
         name: Linux-Artifact
         path: |
-          ./src/bin/x64/Release/net6.0/linux-x64/publish/*.bin
-          ./src/bin/x64/Release/net6.0/linux-x64/publish/*.so
-          ./src/bin/x64/Release/net6.0/linux-x64/publish/*.png
+          ./src/bin/x64/Release/net7.0/linux-x64/publish/*.bin
+          ./src/bin/x64/Release/net7.0/linux-x64/publish/*.so
+          ./src/bin/x64/Release/net7.0/linux-x64/publish/*.png
   build-on-windows:
     runs-on: windows-latest
     steps:
@@ -35,16 +35,16 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
     - name: Publish
       run: ./test.cmd
     - uses: actions/upload-artifact@v2
       with:
         name: Windows-Artifact
         path: |
-          .\src\bin\x64\Release\net6.0\win-x64\publish\*.exe
-          .\src\bin\x64\Release\net6.0\win-x64\publish\*.dll
-          .\src\bin\x64\Release\net6.0\win-x64\publish\*.png
+          .\src\bin\x64\Release\net7.0\win-x64\publish\*.exe
+          .\src\bin\x64\Release\net7.0\win-x64\publish\*.dll
+          .\src\bin\x64\Release\net7.0\win-x64\publish\*.png
   build-on-macos:
     runs-on: macos-latest
     steps:
@@ -52,12 +52,12 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 7.0.x
     - name: Publish
       run: |
         sudo chmod +x ./test.command
         ./test.command
-        cd ./src/bin/x64/Release/net6.0/osx-x64/publish
+        cd ./src/bin/x64/Release/net7.0/osx-x64/publish
         zip -r -0 macOS-Artifact.zip *.app
         mv *.zip ../../../../../../../.
     - uses: actions/upload-artifact@v2
