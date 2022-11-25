@@ -1,10 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
-
+using Avalonia;
 using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 
 namespace AvaloniaCoreRTDemo
 {
@@ -15,25 +14,24 @@ namespace AvaloniaCoreRTDemo
 
         public static Bitmap GetImageFromResources(String fileName)
         {
-            Assembly asm = Assembly.GetExecutingAssembly();
-            String resourceName = asm.GetManifestResourceNames().FirstOrDefault(str => str.EndsWith(fileName));
-            if (resourceName != null)
-                using (Stream bitmapStream = asm.GetManifestResourceStream(resourceName))
-                    return new Bitmap(bitmapStream);
-            else
-                return default;
+            var assetLoader = AvaloniaLocator.Current.GetRequiredService<IAssetLoader>();
+            using var assetStream = assetLoader.Open(new Uri($"avares://AvaloniaCoreRTDemo/Images/{fileName}"));
+            return new Bitmap(assetStream);
         }
 
         public static Bitmap GetImageFromFile(String path)
         {
             try
             {
-                return new Bitmap(path);
+                return new Bitmap(GetImageFullPath(path));
             }
             catch (Exception)
             {
                 return GetImageFromResources("broken-link.png");
             }
         }
+        
+        private static String GetImageFullPath(String fileName)
+            => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
     }
 }

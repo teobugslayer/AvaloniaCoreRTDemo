@@ -1,10 +1,11 @@
 
+using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
 using Avalonia.Themes.Fluent;
-
+using Avalonia.Themes.Simple;
 using AvaloniaCoreRTDemo.Interfaces;
 using AvaloniaCoreRTDemo.Windows;
 
@@ -12,11 +13,10 @@ namespace AvaloniaCoreRTDemo
 {
     public sealed class App : Application, IThemeSwitch
     {
-        private IStyle _baseLight;
-        private IStyle _baseDark;
-
-        private IStyle _fluentLight;
-        private IStyle _fluentDark;
+        private FluentTheme _fluentTheme;
+        private SimpleTheme _simpleTheme;
+        private IStyle _fluentDataGrid;
+        private IStyle _simpleDataGrid;
 
         private ApplicationTheme _currentTheme;
 
@@ -31,7 +31,7 @@ namespace AvaloniaCoreRTDemo
             this.InitializeThemes();
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = !Utilities.IsOSX ? new MainWindow() : new MainWindowMacOS();
+                desktop.MainWindow = new MainWindow();
                 this.DataContext = desktop.MainWindow.DataContext;
             }
             base.OnFrameworkInitializationCompleted();
@@ -39,44 +39,62 @@ namespace AvaloniaCoreRTDemo
 
         private void InitializeThemes()
         {
-            this._baseDark = this.Styles[0];
-            this._baseLight = this.Styles[1];
+            this._fluentTheme = (FluentTheme)this.Resources["fluentTheme"]!;
+            this._simpleTheme = (SimpleTheme)this.Resources["simpleTheme"]!;
+            this._fluentDataGrid = (IStyle)this.Resources["fluentDataGrid"]!;
+            this._simpleDataGrid = (IStyle)this.Resources["simpleDataGrid"]!;
+            Styles.Add(_fluentTheme);
+            Styles.Add(_fluentDataGrid);
 
-            this.Styles.Remove(this._baseDark);
-
-            this._fluentLight = (FluentTheme)this.Resources["fluentLight"]!;
-            this._fluentDark = (FluentTheme)this.Resources["fluentDark"]!;
-
-            this._currentTheme = ApplicationTheme.DefaultLight;
+            this._currentTheme = ApplicationTheme.FluentLight;
         }
 
         ApplicationTheme IThemeSwitch.Current => this._currentTheme;
 
         void IThemeSwitch.ChangeTheme(ApplicationTheme theme)
         {
+            var themeChanged = theme switch
+            {
+                ApplicationTheme.SimpleLight => _currentTheme is ApplicationTheme.FluentDark or ApplicationTheme.FluentLight,
+                ApplicationTheme.SimpleDark => _currentTheme is ApplicationTheme.FluentDark or ApplicationTheme.FluentLight,
+                ApplicationTheme.FluentLight => _currentTheme is ApplicationTheme.SimpleLight or ApplicationTheme.SimpleDark,
+                ApplicationTheme.FluentDark => _currentTheme is ApplicationTheme.SimpleLight or ApplicationTheme.SimpleDark,
+                _ => throw new ArgumentOutOfRangeException(nameof(theme), theme, null)
+            };
+            
             this._currentTheme = theme;
             switch (theme)
             {
-                case ApplicationTheme.DefaultLight:
-                    this.Styles[0] = this._baseLight;
-                    this.Styles.Remove(this._baseDark);
+                case ApplicationTheme.SimpleLight:
+                    this._simpleTheme.Mode = SimpleThemeMode.Light;
+                    this.Styles[0] = this._simpleTheme;
+                    this.Styles[1] = this._simpleDataGrid;
                     break;
-                case ApplicationTheme.DefaultDark:
-                    this.Styles[0] = this._baseDark;
-                    this.Styles.Remove(this._baseLight);
+                case ApplicationTheme.SimpleDark:
+                    this._simpleTheme.Mode = SimpleThemeMode.Dark;
+                    this.Styles[0] = this._simpleTheme;
+                    this.Styles[1] = this._simpleDataGrid;
                     break;
                 case ApplicationTheme.FluentLight:
-                    this.Styles[0] = this._fluentLight;
-                    this.Styles.Remove(this._fluentDark);
-                    if (!this.Styles.Contains(this._baseLight))
-                        this.Styles.Add(this._baseLight);
+                    this._fluentTheme.Mode = FluentThemeMode.Light;
+                    this.Styles[0] = this._fluentTheme;
+                    this.Styles[1] = this._fluentDataGrid;
                     break;
                 case ApplicationTheme.FluentDark:
-                    this.Styles[0] = this._fluentDark;
-                    this.Styles.Remove(this._baseLight);
-                    if (!this.Styles.Contains(this._baseDark))
-                        this.Styles.Add(this._baseDark);
+                    this._fluentTheme.Mode = FluentThemeMode.Dark;
+                    this.Styles[0] = this._fluentTheme;
+                    this.Styles[1] = this._fluentDataGrid;
                     break;
+            }
+
+            if (themeChanged && ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                var oldWindow = desktop.MainWindow;
+                var newWindow = new MainWindow();
+                desktop.MainWindow = newWindow;
+                newWindow.Show();
+                oldWindow.Close();
+                this.DataContext = desktop.MainWindow.DataContext;
             }
         }
     }
