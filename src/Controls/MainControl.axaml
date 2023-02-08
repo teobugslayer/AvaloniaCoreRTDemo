@@ -2,11 +2,11 @@
              xmlns:viewModels="clr-namespace:AvaloniaCoreRTDemo.Controls.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" x:Class="AvaloniaCoreRTDemo.Controls.MainControl"
 			 x:CompileBindings="True"
-			 x:DataType="viewModels:MainViewModel">
+			 x:DataType="viewModels:MainControlViewModel">
 	<Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,*" Margin="32">
 		<TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" TextAlignment="Center" Margin="0,6">Welcome to Avalonia UI + NativeAOT!</TextBlock>
 		<Image Grid.Row="1" Grid.Column="0" Stretch="None" Source="{Binding DotNetImage}"/>
 		<Image Grid.Row="1" Grid.Column="1" Stretch="None" Source="{Binding AvaloniaImage}"/>
-		<TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Watermark="Type here" AcceptsReturn="True" TextWrapping="Wrap"/>
+		<TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Watermark="Type here" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Text}"/>
 	</Grid>
 </UserControl>

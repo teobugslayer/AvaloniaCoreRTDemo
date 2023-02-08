@@ -8,7 +8,7 @@
     <ApplicationIcon>Assets/app.ico</ApplicationIcon>
     <InvariantGlobalization>true</InvariantGlobalization>
     <PublishAot>true</PublishAot>
-
+    <Nullable>enable</Nullable>
     <IsWindows Condition="$([MSBuild]::IsOSPlatform('Windows'))">true</IsWindows>
     <IsLinux Condition="$([MSBuild]::IsOSPlatform('Linux'))">true</IsLinux>
     <IsOSX Condition="$([MSBuild]::IsOSPlatform('OSX'))">true</IsOSX>
@@ -40,14 +40,14 @@
   </ItemGroup>
     
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.0.999-cibuild0026389-beta" />
-    <PackageReference Include="Avalonia.Desktop" Version="11.0.999-cibuild0026389-beta" />
-    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.999-cibuild0026389-beta" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.999-cibuild0026389-beta" />
-    <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.999-cibuild0026389-beta" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.999-cibuild0026389-beta" />
+    <PackageReference Include="Avalonia" Version="11.0.0-*" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.0-*" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.0-*" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0-*" />
+    <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-*" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-*" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.999-cibuild0026389-beta" />
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.0-*" />
     <!--Condition below is needed to generate macOS App only.-->
     <PackageReference Include="Dotnet.Bundle" Version="*" Condition="$(RuntimeIdentifier.StartsWith('osx'))" />
   </ItemGroup>

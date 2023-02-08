@@ -1,5 +1,5 @@
 using System;
-
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
@@ -9,14 +9,14 @@ namespace AvaloniaCoreRTDemo.Windows
 {
     public sealed partial class AboutWindow : Window
     {
-        public AboutWindow()
-        {
-            this.InitializeComponent();
-        }
+        public AboutWindow() : this(false) { }
 
         public AboutWindow(Boolean darkTheme)
         {
             this.InitializeComponent(darkTheme);
+#if DEBUG
+            this.AttachDevTools();
+#endif
         }
 
         private void InitializeComponent(Boolean darkTheme = default)

@@ -8,7 +8,7 @@ using ReactiveUI;
 
 namespace AvaloniaCoreRTDemo.Windows.ViewModels
 {
-    internal record SystemDetail(string Key, string Value);
+    internal record SystemDetail(String Key, String Value);
     
     internal sealed class AboutViewModel : ReactiveObject
     {

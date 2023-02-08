@@ -9,13 +9,19 @@ namespace AvaloniaCoreRTDemo.Controls
     {
         public MainControl()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-            this.DataContext = new MainViewModel();
+            this.DataContext = new MainControlViewModel();
+        }
+
+        public void Reload(IMainWindowState? model)
+        {
+            if(model is not null)
+                this.DataContext = new MainControlViewModel(model);
         }
     }
 }

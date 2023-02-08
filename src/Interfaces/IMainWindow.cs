@@ -1,9 +1,10 @@
-﻿using AvaloniaCoreRTDemo.Interfaces;
+﻿using Avalonia.Controls;
 
-namespace AvaloniaCoreRTDemo
+namespace AvaloniaCoreRTDemo.Interfaces
 {
     public interface IMainWindow
     {
         IThemeSwitch ThemeSwitch { get; }
+        IMainWindowState Model { get; }
     }
 }
