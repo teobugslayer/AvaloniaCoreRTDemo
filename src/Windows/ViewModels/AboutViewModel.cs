@@ -9,10 +9,10 @@ using ReactiveUI;
 namespace AvaloniaCoreRTDemo.Windows.ViewModels
 {
     internal record SystemDetail(String Key, String Value);
-    
+
     internal sealed class AboutViewModel : ReactiveObject
     {
-        
+
         private readonly IBitmap _computerImage;
         private readonly Boolean _darkTheme;
 

@@ -1,4 +1,5 @@
 using System;
+
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -6,6 +7,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
 using Avalonia.Themes.Fluent;
 using Avalonia.Themes.Simple;
+
 using AvaloniaCoreRTDemo.Interfaces;
 using AvaloniaCoreRTDemo.Windows;
 

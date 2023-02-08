@@ -1,6 +1,4 @@
-﻿using Avalonia.Controls;
-
-namespace AvaloniaCoreRTDemo.Interfaces
+﻿namespace AvaloniaCoreRTDemo.Interfaces
 {
     public interface IMainWindow
     {

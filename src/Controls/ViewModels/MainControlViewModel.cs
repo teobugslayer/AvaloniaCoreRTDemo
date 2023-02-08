@@ -1,8 +1,7 @@
 ﻿using System;
-using System.IO;
 
 using Avalonia.Media.Imaging;
-using AvaloniaCoreRTDemo.Interfaces;
+
 using ReactiveUI;
 
 namespace AvaloniaCoreRTDemo.Controls.ViewModels

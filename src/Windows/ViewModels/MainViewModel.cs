@@ -1,10 +1,6 @@
-﻿using System;
-using System.Reactive;
+﻿using Avalonia.Controls;
 
-using Avalonia.Controls;
-using AvaloniaCoreRTDemo.Controls.ViewModels;
 using AvaloniaCoreRTDemo.Interfaces;
-using ReactiveUI;
 
 namespace AvaloniaCoreRTDemo.Windows.ViewModels
 {

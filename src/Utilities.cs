@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.InteropServices;
+
 using Avalonia;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
@@ -30,7 +31,7 @@ namespace AvaloniaCoreRTDemo
                 return GetImageFromResources("broken-link.png");
             }
         }
-        
+
         private static String GetImageFullPath(String fileName)
             => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
     }

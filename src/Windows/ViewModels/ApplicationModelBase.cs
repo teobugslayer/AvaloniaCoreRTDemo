@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive;
+
 using Avalonia.Controls;
 
 using AvaloniaCoreRTDemo.Interfaces;
@@ -46,7 +47,7 @@ namespace AvaloniaCoreRTDemo.Windows.ViewModels
             get => this._fluentDarkEnable;
             set => this.RaiseAndSetIfChanged(ref this._fluentDarkEnable, value);
         }
-        
+
         public ReactiveCommand<Unit, Unit> FileExitCommand { get; }
 
         public ApplicationModelBase(IThemeSwitch themeSwitch)

@@ -20,7 +20,7 @@ namespace AvaloniaCoreRTDemo.Controls
 
         public void Reload(IMainWindowState? model)
         {
-            if(model is not null)
+            if (model is not null)
                 this.DataContext = new MainControlViewModel(model);
         }
     }

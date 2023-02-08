@@ -1,10 +1,8 @@
-using System;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+
 using AvaloniaCoreRTDemo.Controls;
-using AvaloniaCoreRTDemo.Controls.ViewModels;
 using AvaloniaCoreRTDemo.Interfaces;
 using AvaloniaCoreRTDemo.Windows.ViewModels;
 
@@ -14,7 +12,7 @@ namespace AvaloniaCoreRTDemo.Windows
     {
         private readonly Application? _app = App.Current;
 
-        public MainWindow() : this(default) { }        
+        public MainWindow() : this(default) { }
         public MainWindow(IMainWindow? window)
         {
             this.InitializeComponent(window);
