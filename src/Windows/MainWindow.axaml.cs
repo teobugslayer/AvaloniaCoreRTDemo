@@ -34,7 +34,7 @@ namespace AvaloniaCoreRTDemo.Windows
         {
             AvaloniaXamlLoader.Load(this);
             this.DataContext = new MainViewModel<MainWindow>(this);
-            if(window is not null)
+            if (window is not null)
             {
                 this.MainControl.Reload(window.Model);
                 this.WindowState = window.State;
