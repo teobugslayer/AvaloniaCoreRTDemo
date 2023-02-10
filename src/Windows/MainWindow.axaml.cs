@@ -12,6 +12,8 @@ namespace AvaloniaCoreRTDemo.Windows
     {
         private readonly Application? _app = App.Current;
 
+        private MainControl MainControl => this.GetControl<MainControl>("MainControl");
+
         public MainWindow() : this(default) { }
         public MainWindow(IMainWindow? window)
         {
@@ -21,14 +23,25 @@ namespace AvaloniaCoreRTDemo.Windows
 #endif
         }
 
-        IThemeSwitch IMainWindow.ThemeSwitch => (this._app as IThemeSwitch)!;
-        IMainWindowState IMainWindow.Model => (this.GetControl<MainControl>("mainControl")!.DataContext as IMainWindowState)!;
+        IThemeSwitch IMainWindow.ThemeSwitch => (IThemeSwitch)this._app!;
+        IMainWindowState IMainWindow.Model => (IMainWindowState)this.MainControl.DataContext!;
+        PixelPoint IMainWindow.Position => this.Position;
+        Size IMainWindow.ClientSize => this.ClientSize;
+        Size? IMainWindow.FrameSize => this.FrameSize;
+        WindowState IMainWindow.State => this.WindowState;
 
         private void InitializeComponent(IMainWindow? window)
         {
             AvaloniaXamlLoader.Load(this);
             this.DataContext = new MainViewModel<MainWindow>(this);
-            this.GetControl<MainControl>("mainControl").Reload(window?.Model);
+            if(window is not null)
+            {
+                this.MainControl.Reload(window.Model);
+                this.WindowState = window.State;
+                this.Position = window.Position;
+                this.FrameSize = window.FrameSize;
+                this.ClientSize = window.ClientSize;
+            }
         }
     }
 }

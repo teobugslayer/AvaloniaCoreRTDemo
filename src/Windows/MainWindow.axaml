@@ -7,7 +7,7 @@
         x:DataType="viewModels1:ApplicationModelBase">
     <DockPanel>
         <NativeMenuBar DockPanel.Dock="Top" />
-        <controls:MainControl Name="mainControl"/>
+        <controls:MainControl Name="MainControl"/>
     </DockPanel>
     <NativeMenu.Menu>
         <NativeMenu>
