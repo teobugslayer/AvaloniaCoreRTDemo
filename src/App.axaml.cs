@@ -100,6 +100,8 @@ namespace AvaloniaCoreRTDemo
 
                 desktop.MainWindow = newWindow;
                 this.DataContext = newWindow.DataContext;
+
+                oldWindow.Hide();
                 newWindow.Show();
                 oldWindow.Close();
             }

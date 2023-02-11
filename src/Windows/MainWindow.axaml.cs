@@ -37,6 +37,7 @@ namespace AvaloniaCoreRTDemo.Windows
             if (window is not null)
             {
                 this.MainControl.Reload(window.Model);
+                this.WindowStartupLocation = WindowStartupLocation.Manual;
                 this.WindowState = window.State;
                 this.Position = window.Position;
                 this.FrameSize = window.FrameSize;
