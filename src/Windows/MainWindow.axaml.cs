@@ -25,7 +25,7 @@ namespace AvaloniaCoreRTDemo.Windows
 
         IThemeSwitch IMainWindow.ThemeSwitch => (IThemeSwitch)this._app!;
         IMainWindowState IMainWindow.Model => (IMainWindowState)this.MainControl.DataContext!;
-        PixelPoint IMainWindow.Position => this.Position;
+        PixelPoint IMainWindow.Position => Utilities.GetWindowPosition(this);
         Size IMainWindow.ClientSize => this.ClientSize;
         Size? IMainWindow.FrameSize => this.FrameSize;
         WindowState IMainWindow.State => this.WindowState;

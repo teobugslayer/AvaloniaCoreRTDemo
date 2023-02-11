@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 
@@ -18,6 +19,17 @@ namespace AvaloniaCoreRTDemo
             var assetLoader = AvaloniaLocator.Current.GetRequiredService<IAssetLoader>();
             using var assetStream = assetLoader.Open(new Uri($"avares://AvaloniaCoreRTDemo/Images/{fileName}"));
             return new Bitmap(assetStream);
+        }
+
+        public static PixelPoint GetWindowPosition(Window window)
+        {
+            if (!IsOSX || !window.FrameSize.HasValue)
+                return window.Position;
+            else
+            {
+                Int32 yOffset = (Int32)(window.FrameSize.Value.Height - window.ClientSize.Height);
+                return new(window.Position.X, window.Position.Y + yOffset);
+            }
         }
 
         public static Bitmap GetImageFromFile(String path)
