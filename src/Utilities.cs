@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.InteropServices;
+
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 
@@ -19,6 +21,17 @@ namespace AvaloniaCoreRTDemo
             return new Bitmap(assetStream);
         }
 
+        public static PixelPoint GetWindowPosition(Window window)
+        {
+            if (!IsOSX || !window.FrameSize.HasValue)
+                return window.Position;
+            else
+            {
+                Int32 yOffset = (Int32)(window.FrameSize.Value.Height - window.ClientSize.Height);
+                return new(window.Position.X, window.Position.Y + yOffset);
+            }
+        }
+
         public static Bitmap GetImageFromFile(String path)
         {
             try
@@ -30,7 +43,7 @@ namespace AvaloniaCoreRTDemo
                 return GetImageFromResources("broken-link.png");
             }
         }
-        
+
         private static String GetImageFullPath(String fileName)
             => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
     }

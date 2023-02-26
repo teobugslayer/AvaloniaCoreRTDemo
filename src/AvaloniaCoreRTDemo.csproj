@@ -2,25 +2,31 @@
 
   <PropertyGroup>
     <!-- if you want to check exceptions, change this to "Exe" and start your app from the console -->
-    <OutputType>WinExe</OutputType>
+    <OutputType Condition="'$(Configuration.toUpper())' != 'DEBUG'">WinExe</OutputType>
+    <OutputType Condition="'$(Configuration.toUpper())' == 'DEBUG'">Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
-    <Platforms>x64</Platforms>
     <ApplicationIcon>Assets/app.ico</ApplicationIcon>
     <InvariantGlobalization>true</InvariantGlobalization>
+    <Nullable>enable</Nullable>
     <PublishAot>true</PublishAot>
-
+    <PublishTrimmed>true</PublishTrimmed>
+    <SelfContained>true</SelfContained>
+  </PropertyGroup>
+  
+  <PropertyGroup>
     <IsWindows Condition="$([MSBuild]::IsOSPlatform('Windows'))">true</IsWindows>
     <IsLinux Condition="$([MSBuild]::IsOSPlatform('Linux'))">true</IsLinux>
     <IsOSX Condition="$([MSBuild]::IsOSPlatform('OSX'))">true</IsOSX>
   </PropertyGroup>
   
   <PropertyGroup>
-    <!--Tthese can help when debugging weird exceptions especially when reflection is involved. See https://github.com/dotnet/corert/blob/master/Documentation/using-corert/optimizing-corert.md -->  
+    <TrimMode>link</TrimMode>
+    <!--These can help when debugging weird exceptions especially when reflection is involved. See https://github.com/dotnet/corert/blob/master/Documentation/using-corert/optimizing-corert.md -->  
     <!--RootAllApplicationAssemblies: False -> TrimMode:link See https://github.com/dotnet/runtimelab/issues/597 and https://github.com/dotnet/runtimelab/blob/feature/NativeAOT/docs/using-nativeaot/optimizing.md -->
     <IlcGenerateCompleteTypeMetadata>false</IlcGenerateCompleteTypeMetadata>
-    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
+    <IlcGenerateStackTraceData Condition="'$(Configuration.toUpper())' != 'DEBUG'">false</IlcGenerateStackTraceData>
     <IlcDisableUnhandledExceptionExperience>true</IlcDisableUnhandledExceptionExperience>
-    <StripSymbols>true</StripSymbols>
+    <StripSymbols Condition="'$(Configuration.toUpper())' != 'DEBUG'">true</StripSymbols>
   </PropertyGroup>
   
   <ItemGroup>
@@ -37,19 +43,20 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <RuntimeHostConfigurationOption Include="Switch.System.Reflection.Assembly.SimulatedCallingAssembly" Value="true" />
   </ItemGroup>
     
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.0.999-cibuild0026389-beta" />
-    <PackageReference Include="Avalonia.Desktop" Version="11.0.999-cibuild0026389-beta" />
-    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.999-cibuild0026389-beta" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.999-cibuild0026389-beta" />
-    <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.999-cibuild0026389-beta" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.999-cibuild0026389-beta" />
+    <PackageReference Include="Avalonia" Version="11.0.0-*" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.0-*" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.0-*" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0-*" />
+    <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-*" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-*" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.999-cibuild0026389-beta" />
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.0-*" />
     <!--Condition below is needed to generate macOS App only.-->
-    <PackageReference Include="Dotnet.Bundle" Version="*" Condition="$(RuntimeIdentifier.StartsWith('osx'))" />
+    <PackageReference Include="Dotnet.Bundle" Version="0.9.13" Condition="$(RuntimeIdentifier.StartsWith('osx'))" />
   </ItemGroup>
   	
   <!-- Information for Dotnet.Bundle to Generate macOS app-->
