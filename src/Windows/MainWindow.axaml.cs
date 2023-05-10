@@ -36,6 +36,8 @@ namespace AvaloniaCoreRTDemo.Windows
                 this.Position = window.Position;
                 this.FrameSize = window.FrameSize;
                 this.ClientSize = window.ClientSize;
+                this.Height = window.Height;
+                this.Width = window.Width;
             }
         }
     }
