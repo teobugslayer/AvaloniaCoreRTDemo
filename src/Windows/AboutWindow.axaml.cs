@@ -1,8 +1,6 @@
 using System;
 
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 
 using AvaloniaCoreRTDemo.Windows.ViewModels;
 
@@ -18,14 +16,12 @@ namespace AvaloniaCoreRTDemo.Windows
         {
             this._darkTheme = darkTheme;
             this.InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
         }
 
         private void InitializeComponent()
         {
-            AvaloniaXamlLoader.Load(this);
+            //Use generated InitializeComponent method.
+            this.InitializeComponent(loadXaml: true);
             this.DataContext = new AboutViewModel(this._darkTheme);
         }
     }

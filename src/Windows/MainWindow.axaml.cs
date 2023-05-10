@@ -1,8 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 
-using AvaloniaCoreRTDemo.Controls;
 using AvaloniaCoreRTDemo.Interfaces;
 using AvaloniaCoreRTDemo.Windows.ViewModels;
 
@@ -12,15 +10,10 @@ namespace AvaloniaCoreRTDemo.Windows
     {
         private readonly Application? _app = App.Current;
 
-        private MainControl MainControl => this.GetControl<MainControl>("MainControl");
-
         public MainWindow() : this(default) { }
         public MainWindow(IMainWindow? window)
         {
             this.InitializeComponent(window);
-#if DEBUG
-            this.AttachDevTools();
-#endif
         }
 
         IThemeSwitch IMainWindow.ThemeSwitch => (IThemeSwitch)this._app!;
@@ -32,7 +25,8 @@ namespace AvaloniaCoreRTDemo.Windows
 
         private void InitializeComponent(IMainWindow? window)
         {
-            AvaloniaXamlLoader.Load(this);
+            //Use generated InitializeComponent method.
+            this.InitializeComponent(loadXaml: true);
             this.DataContext = new MainViewModel<MainWindow>(this);
             if (window is not null)
             {
