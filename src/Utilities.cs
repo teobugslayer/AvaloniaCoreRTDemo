@@ -15,6 +15,7 @@ namespace AvaloniaCoreRTDemo
         private const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic;
 
         public static readonly Boolean IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+        public static readonly Boolean IsLinux = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
         public static readonly Boolean IsOSX = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 
         public static Bitmap GetImageFromResources(String fileName)
@@ -26,7 +27,7 @@ namespace AvaloniaCoreRTDemo
 
         public static PixelPoint GetWindowPosition(Window window)
         {
-            if (!window.FrameSize.HasValue)
+            if (IsLinux || !window.FrameSize.HasValue)
                 return window.Position;
 
             if (IsWindows)
@@ -35,11 +36,9 @@ namespace AvaloniaCoreRTDemo
                 Int32 xOffset = borderSize.Width + (Int32)(window.FrameSize.Value.Width - window.ClientSize.Width) / 2;
                 return new(window.Position.X - xOffset, window.Position.Y);
             }
-            else
-            {
-                Int32 yOffset = (Int32)(window.FrameSize.Value.Height - window.ClientSize.Height);
-                return new(window.Position.X, window.Position.Y + yOffset);
-            }
+
+            Int32 yOffset = (Int32)(window.FrameSize.Value.Height - window.ClientSize.Height);
+            return new(window.Position.X, window.Position.Y + yOffset);
         }
 
         public static Bitmap GetImageFromFile(String path)
