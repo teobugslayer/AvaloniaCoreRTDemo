@@ -27,18 +27,20 @@ namespace AvaloniaCoreRTDemo
 
         public static PixelPoint GetWindowPosition(Window window)
         {
-            if (IsLinux || !window.FrameSize.HasValue)
-                return window.Position;
-
+            PixelPoint result = window.Position;
+            Size frameSize = window.FrameSize ?? default;
             if (IsWindows)
             {
                 PixelSize borderSize = GetWindowsBorderSize(window.PlatformImpl);
-                Int32 xOffset = borderSize.Width + (Int32)(window.FrameSize.Value.Width - window.ClientSize.Width) / 2;
-                return new(window.Position.X - xOffset, window.Position.Y);
+                Int32 xOffset = borderSize.Width + (Int32)(frameSize.Width - window.ClientSize.Width) / 2;
+                result = new(result.X - xOffset, result.Y);
             }
-
-            Int32 yOffset = (Int32)(window.FrameSize.Value.Height - window.ClientSize.Height);
-            return new(window.Position.X, window.Position.Y + yOffset);
+            else if (IsOSX)
+            {
+                Int32 yOffset = (Int32)(frameSize.Height - window.ClientSize.Height);
+                result = new(window.Position.X, window.Position.Y + yOffset);
+            }
+            return result;
         }
 
         public static Bitmap GetImageFromFile(String path)
