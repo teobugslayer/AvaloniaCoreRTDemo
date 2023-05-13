@@ -1,3 +1,5 @@
+using System;
+
 using Avalonia;
 using Avalonia.Controls;
 
@@ -8,15 +10,16 @@ namespace AvaloniaCoreRTDemo.Windows
 {
     public sealed partial class MainWindow : Window, IMainWindow
     {
-        private readonly Application? _app = App.Current;
+        private IThemeSwitch ThemeSwitch => (IThemeSwitch)App.Current!;
 
         public MainWindow() : this(default) { }
+
         public MainWindow(IMainWindow? window)
         {
             this.InitializeComponent(window);
         }
 
-        IThemeSwitch IMainWindow.ThemeSwitch => (IThemeSwitch)this._app!;
+        IThemeSwitch IMainWindow.ThemeSwitch => this.ThemeSwitch;
         IMainWindowState IMainWindow.Model => (IMainWindowState)this.MainControl.DataContext!;
         PixelPoint IMainWindow.Position => Utilities.GetWindowPosition(this);
         Size IMainWindow.ClientSize => this.ClientSize;
@@ -28,6 +31,7 @@ namespace AvaloniaCoreRTDemo.Windows
             //Use generated InitializeComponent method.
             this.InitializeComponent(loadXaml: true);
             this.DataContext = new MainViewModel<MainWindow>(this);
+            this.InitializeMenu();
             if (window is not null)
             {
                 this.MainControl.Reload(window.Model);
@@ -39,13 +43,27 @@ namespace AvaloniaCoreRTDemo.Windows
                 this.Height = window.Height;
                 this.Width = window.Width;
             }
-            //Remove About item from File menu in macOS
+        }
+
+        private void InitializeMenu()
+        {
+            NativeMenu menu = (NativeMenu)this[NativeMenu.MenuProperty]!;
+            DisableCurrentTheme(menu, this.ThemeSwitch.Current);
             if (Utilities.IsOSX)
-            {
-                NativeMenu menu = (NativeMenu)this[NativeMenu.MenuProperty]!;
-                NativeMenuItem fileItem = (NativeMenuItem)menu.Items[0];
-                fileItem.Menu!.Items.RemoveAt(1);
-            }
+                RemoveAboutMenu(menu);
+        }
+
+        private static void DisableCurrentTheme(NativeMenu menu, ApplicationTheme theme)
+        {
+            NativeMenuItem themeMenu = (NativeMenuItem)menu.Items[1];
+            NativeMenuItem themeItem = (NativeMenuItem)themeMenu.Menu!.Items[(Int32)theme];
+            themeItem.IsEnabled = false;
+        }
+
+        private static void RemoveAboutMenu(NativeMenu menu)
+        {
+            NativeMenuItem fileMenu = (NativeMenuItem)menu.Items[0];
+            fileMenu.Menu!.Items.RemoveAt(1);
         }
     }
 }
