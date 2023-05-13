@@ -39,6 +39,13 @@ namespace AvaloniaCoreRTDemo.Windows
                 this.Height = window.Height;
                 this.Width = window.Width;
             }
+            //Remove About item from File menu in macOS
+            if (Utilities.IsOSX)
+            {
+                NativeMenu menu = (NativeMenu)this[NativeMenu.MenuProperty]!;
+                NativeMenuItem fileItem = (NativeMenuItem)menu.Items[0];
+                fileItem.Menu!.Items.RemoveAt(1);
+            }
         }
     }
 }
