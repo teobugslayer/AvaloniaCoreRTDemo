@@ -1,8 +1,8 @@
+using System;
+
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 
-using AvaloniaCoreRTDemo.Controls;
 using AvaloniaCoreRTDemo.Interfaces;
 using AvaloniaCoreRTDemo.Windows.ViewModels;
 
@@ -10,20 +10,16 @@ namespace AvaloniaCoreRTDemo.Windows
 {
     public sealed partial class MainWindow : Window, IMainWindow
     {
-        private readonly Application? _app = App.Current;
-
-        private MainControl MainControl => this.GetControl<MainControl>("MainControl");
+        private IThemeSwitch ThemeSwitch => (IThemeSwitch)App.Current!;
 
         public MainWindow() : this(default) { }
+
         public MainWindow(IMainWindow? window)
         {
             this.InitializeComponent(window);
-#if DEBUG
-            this.AttachDevTools();
-#endif
         }
 
-        IThemeSwitch IMainWindow.ThemeSwitch => (IThemeSwitch)this._app!;
+        IThemeSwitch IMainWindow.ThemeSwitch => this.ThemeSwitch;
         IMainWindowState IMainWindow.Model => (IMainWindowState)this.MainControl.DataContext!;
         PixelPoint IMainWindow.Position => Utilities.GetWindowPosition(this);
         Size IMainWindow.ClientSize => this.ClientSize;
@@ -32,8 +28,10 @@ namespace AvaloniaCoreRTDemo.Windows
 
         private void InitializeComponent(IMainWindow? window)
         {
-            AvaloniaXamlLoader.Load(this);
+            //Use generated InitializeComponent method.
+            this.InitializeComponent(loadXaml: true);
             this.DataContext = new MainViewModel<MainWindow>(this);
+            this.InitializeMenu();
             if (window is not null)
             {
                 this.MainControl.Reload(window.Model);
@@ -42,7 +40,30 @@ namespace AvaloniaCoreRTDemo.Windows
                 this.Position = window.Position;
                 this.FrameSize = window.FrameSize;
                 this.ClientSize = window.ClientSize;
+                this.Height = window.Height;
+                this.Width = window.Width;
             }
+        }
+
+        private void InitializeMenu()
+        {
+            NativeMenu menu = (NativeMenu)this[NativeMenu.MenuProperty]!;
+            DisableCurrentTheme(menu, this.ThemeSwitch.Current);
+            if (Utilities.IsOSX)
+                RemoveAboutMenu(menu);
+        }
+
+        private static void DisableCurrentTheme(NativeMenu menu, ApplicationTheme theme)
+        {
+            NativeMenuItem themeMenu = (NativeMenuItem)menu.Items[1];
+            NativeMenuItem themeItem = (NativeMenuItem)themeMenu.Menu!.Items[(Int32)theme];
+            themeItem.IsEnabled = false;
+        }
+
+        private static void RemoveAboutMenu(NativeMenu menu)
+        {
+            NativeMenuItem fileMenu = (NativeMenuItem)menu.Items[0];
+            fileMenu.Menu!.Items.RemoveAt(1);
         }
     }
 }

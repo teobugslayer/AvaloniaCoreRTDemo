@@ -1,5 +1,4 @@
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 
 using AvaloniaCoreRTDemo.Controls.ViewModels;
 
@@ -14,7 +13,8 @@ namespace AvaloniaCoreRTDemo.Controls
 
         private void InitializeComponent()
         {
-            AvaloniaXamlLoader.Load(this);
+            //Use generated InitializeComponent method.
+            this.InitializeComponent(loadXaml: true);
             this.DataContext = new MainControlViewModel();
         }
 

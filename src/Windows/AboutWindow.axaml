@@ -10,7 +10,7 @@
 	<Grid VerticalAlignment="Top" HorizontalAlignment="Left" ColumnDefinitions="Auto,*">
 		<Image Margin="0, 60" Grid.Column="0" Stretch="None" Source="{Binding ComputerImage}" VerticalAlignment="Top" HorizontalAlignment="Left">
 		</Image>
-		<DataGrid Grid.Column="1" Items="{Binding SystemDetails}" IsReadOnly="True" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" HeadersVisibility="None">
+		<DataGrid Grid.Column="1" ItemsSource="{Binding SystemDetails}" IsReadOnly="True" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" HeadersVisibility="None">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Key" Binding="{Binding Key, x:DataType=viewModels:SystemDetail}" FontWeight="Bold" />
 				<DataGridTextColumn Header="Value" Binding="{Binding Value, x:DataType=viewModels:SystemDetail}" />

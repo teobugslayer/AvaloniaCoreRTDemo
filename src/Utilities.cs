@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 using Avalonia;
@@ -11,6 +12,8 @@ namespace AvaloniaCoreRTDemo
 {
     internal static class Utilities
     {
+        private const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic;
+
         public static readonly Boolean IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
         public static readonly Boolean IsOSX = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 
@@ -23,13 +26,20 @@ namespace AvaloniaCoreRTDemo
 
         public static PixelPoint GetWindowPosition(Window window)
         {
-            if (!IsOSX || !window.FrameSize.HasValue)
-                return window.Position;
-            else
+            PixelPoint result = window.Position;
+            Size frameSize = window.FrameSize ?? default;
+            if (IsWindows)
             {
-                Int32 yOffset = (Int32)(window.FrameSize.Value.Height - window.ClientSize.Height);
-                return new(window.Position.X, window.Position.Y + yOffset);
+                PixelSize borderSize = GetWindowsBorderSize(window.PlatformImpl);
+                Int32 xOffset = borderSize.Width + (Int32)(frameSize.Width - window.ClientSize.Width) / 2;
+                result = new(result.X - xOffset, result.Y);
             }
+            else if (IsOSX)
+            {
+                Int32 yOffset = (Int32)(frameSize.Height - window.ClientSize.Height);
+                result = new(window.Position.X, window.Position.Y + yOffset);
+            }
+            return result;
         }
 
         public static Bitmap GetImageFromFile(String path)
@@ -46,5 +56,12 @@ namespace AvaloniaCoreRTDemo
 
         private static String GetImageFullPath(String fileName)
             => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
+
+        private static PixelSize GetWindowsBorderSize(IWindowImpl? imp)
+        {
+            if (imp?.GetType()?.GetProperty("HiddenBorderSize", bindingFlags) is PropertyInfo prop)
+                return (PixelSize)prop.GetValue(imp)!;
+            return default;
+        }
     }
 }

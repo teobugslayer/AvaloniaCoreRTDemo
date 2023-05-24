@@ -1,4 +1,6 @@
-﻿using Avalonia;
+﻿using System;
+
+using Avalonia;
 using Avalonia.Controls;
 
 namespace AvaloniaCoreRTDemo.Interfaces
@@ -11,5 +13,7 @@ namespace AvaloniaCoreRTDemo.Interfaces
         Size ClientSize { get; }
         Size? FrameSize { get; }
         WindowState State { get; }
+        Double Height { get; }
+        Double Width { get; }
     }
 }
