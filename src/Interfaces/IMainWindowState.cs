@@ -1,13 +1,13 @@
 ﻿using System;
 
-using Avalonia.Media.Imaging;
+using Avalonia.Media;
 
 namespace AvaloniaCoreRTDemo
 {
     public interface IMainWindowState
     {
-        IBitmap DotNetImage { get; }
-        IBitmap AvaloniaImage { get; }
+        IImage DotNetImage { get; }
+        IImage AvaloniaImage { get; }
         String? Text { get; }
 
         void SetUnloadable();

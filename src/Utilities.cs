@@ -19,9 +19,8 @@ namespace AvaloniaCoreRTDemo
 
         public static Bitmap GetImageFromResources(String fileName)
         {
-            var assetLoader = AvaloniaLocator.Current.GetRequiredService<IAssetLoader>();
-            using var assetStream = assetLoader.Open(new Uri($"avares://AvaloniaCoreRTDemo/Images/{fileName}"));
-            return new Bitmap(assetStream);
+            Uri resourceUri = new($"avares://AvaloniaCoreRTDemo/Images/{fileName}");
+            return new Bitmap(AssetLoader.Open(resourceUri));
         }
 
         public static PixelPoint GetWindowPosition(Window window)
