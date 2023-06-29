@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-using Avalonia.Media.Imaging;
+using Avalonia.Media;
 
 using ReactiveUI;
 
@@ -12,11 +12,10 @@ namespace AvaloniaCoreRTDemo.Windows.ViewModels
 
     internal sealed class AboutViewModel : ReactiveObject
     {
-
-        private readonly IBitmap _computerImage;
+        private readonly IImage _computerImage;
         private readonly Boolean _darkTheme;
 
-        public IBitmap ComputerImage => _computerImage;
+        public IImage ComputerImage => _computerImage;
 
         public IReadOnlyList<SystemDetail> SystemDetails { get; } = new[]
         {
@@ -56,7 +55,7 @@ namespace AvaloniaCoreRTDemo.Windows.ViewModels
 
         ~AboutViewModel()
         {
-            this._computerImage.Dispose();
+            (this._computerImage as IDisposable)?.Dispose();
         }
     }
 }

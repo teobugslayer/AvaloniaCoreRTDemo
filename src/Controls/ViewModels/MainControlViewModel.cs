@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Avalonia.Media.Imaging;
+using Avalonia.Media;
 
 using ReactiveUI;
 
@@ -8,13 +8,13 @@ namespace AvaloniaCoreRTDemo.Controls.ViewModels
 {
     internal sealed class MainControlViewModel : ReactiveObject, IMainWindowState
     {
-        private readonly IBitmap _dotNetImage;
-        private readonly IBitmap _avaloniaImage;
+        private readonly IImage _dotNetImage;
+        private readonly IImage _avaloniaImage;
 
         private Boolean _unloadable = false;
 
-        public IBitmap DotNetImage => this._dotNetImage;
-        public IBitmap AvaloniaImage => this._avaloniaImage;
+        public IImage DotNetImage => this._dotNetImage;
+        public IImage AvaloniaImage => this._avaloniaImage;
         public String? Text { get; set; }
 
         public MainControlViewModel()
@@ -35,8 +35,8 @@ namespace AvaloniaCoreRTDemo.Controls.ViewModels
         {
             if (!this._unloadable)
             {
-                this._dotNetImage.Dispose();
-                this._avaloniaImage.Dispose();
+                (this._dotNetImage as IDisposable)?.Dispose();
+                (this._avaloniaImage as IDisposable)?.Dispose();
             }
         }
 
