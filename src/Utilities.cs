@@ -17,6 +17,7 @@ namespace AvaloniaCoreRTDemo
 
         public static readonly Boolean IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
         public static readonly Boolean IsOSX = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+        public static readonly Boolean IsLinux = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
 
         public static Bitmap GetImageFromResources(String fileName)
         {

@@ -33,9 +33,9 @@ namespace AvaloniaCoreRTDemo.Windows
         protected override void OnLoaded(RoutedEventArgs e)
         {
             base.OnLoaded(e);
-            // The window state on non-windows platforms seems to have to be initialized after
+            // The window state on Linux seems to have to be initialized after
             // window loading.
-            if (this._initialState.HasValue && !Utilities.IsWindows)
+            if (this._initialState.HasValue && Utilities.IsLinux)
                 this.WindowState = this._initialState.Value;
         }
 
@@ -60,7 +60,8 @@ namespace AvaloniaCoreRTDemo.Windows
         }
         private void SetSizeAndPosition(IMainWindow window)
         {
-            if (Utilities.IsWindows) this.WindowState = window.State;
+            if (!Utilities.IsLinux)
+                this.WindowState = window.State;
             if (this.WindowState == WindowState.Normal)
             {
                 this.WindowStartupLocation = WindowStartupLocation.Manual;
