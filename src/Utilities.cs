@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -56,10 +57,21 @@ namespace AvaloniaCoreRTDemo
         private static String GetImageFullPath(String fileName)
             => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
 
+        [UnconditionalSuppressMessage("AssemblyLoadTrimming", "IL2072",
+            Justification = "Avalonia.Win32.WindowImpl is persisted in rd.xml directives.")]
         private static PixelSize GetWindowsBorderSize(IWindowImpl? imp)
         {
-            if (imp?.GetType()?.GetProperty("HiddenBorderSize", bindingFlags) is PropertyInfo prop)
-                return (PixelSize)prop.GetValue(imp)!;
+            if (imp is not null)
+                return (PixelSize)GetHiddenBorderSize(imp.GetType(), imp)!;
+            return default;
+        }
+
+        private static Object? GetHiddenBorderSize(
+            [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.NonPublicProperties)] Type type,
+            Object obj)
+        {
+            if (type.GetProperty("HiddenBorderSize", bindingFlags) is PropertyInfo prop)
+                return prop.GetValue(obj)!;
             return default;
         }
     }
