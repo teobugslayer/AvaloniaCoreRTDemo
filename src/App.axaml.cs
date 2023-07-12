@@ -96,7 +96,7 @@ namespace AvaloniaCoreRTDemo
             if (themeChanged && this.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 MainWindow oldWindow = (desktop.MainWindow as MainWindow)!;
-                MainWindow newWindow = new MainWindow(oldWindow);
+                MainWindow newWindow = new(oldWindow);
 
                 desktop.MainWindow = newWindow;
                 this.DataContext = newWindow.DataContext;

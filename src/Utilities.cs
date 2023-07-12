@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -16,6 +17,7 @@ namespace AvaloniaCoreRTDemo
 
         public static readonly Boolean IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
         public static readonly Boolean IsOSX = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+        public static readonly Boolean IsLinux = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
 
         public static Bitmap GetImageFromResources(String fileName)
         {
@@ -56,10 +58,21 @@ namespace AvaloniaCoreRTDemo
         private static String GetImageFullPath(String fileName)
             => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
 
+        [UnconditionalSuppressMessage("AssemblyLoadTrimming", "IL2072",
+            Justification = "Avalonia.Win32.WindowImpl is persisted in rd.xml directives.")]
         private static PixelSize GetWindowsBorderSize(IWindowImpl? imp)
         {
-            if (imp?.GetType()?.GetProperty("HiddenBorderSize", bindingFlags) is PropertyInfo prop)
-                return (PixelSize)prop.GetValue(imp)!;
+            if (imp is not null)
+                return (PixelSize)GetHiddenBorderSize(imp.GetType(), imp)!;
+            return default;
+        }
+
+        private static Object? GetHiddenBorderSize(
+            [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.NonPublicProperties)] Type type,
+            Object obj)
+        {
+            if (type.GetProperty("HiddenBorderSize", bindingFlags) is PropertyInfo prop)
+                return prop.GetValue(obj)!;
             return default;
         }
     }
