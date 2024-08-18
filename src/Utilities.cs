@@ -35,11 +35,6 @@ namespace AvaloniaCoreRTDemo
                 Int32 xOffset = borderSize.Width + (Int32)(frameSize.Width - window.ClientSize.Width) / 2;
                 result = new(result.X - xOffset, result.Y);
             }
-            // else if (IsOSX)
-            // {
-            //     Int32 yOffset = (Int32)(frameSize.Height - window.ClientSize.Height);
-            //     result = new(window.Position.X, window.Position.Y + yOffset);
-            // }
             return result;
         }
 

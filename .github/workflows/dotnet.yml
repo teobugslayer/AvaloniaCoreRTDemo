@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build-on-linux:
+  build-on-linux-x64:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -16,51 +16,108 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 8.0.x
     - name: Publish
       run: |
         sudo chmod +x ./test.sh
         ./test.sh
     - uses: actions/upload-artifact@v2
       with:
-        name: Linux-Artifact
+        name: linux-x64-Artifact
         path: |
-          ./src/bin/Release/net7.0/linux-x64/publish/*.bin
-          ./src/bin/Release/net7.0/linux-x64/publish/*.so
-          ./src/bin/Release/net7.0/linux-x64/publish/*.png
-  build-on-windows:
+          ./src/bin/Release/net8.0/linux-x64/publish/*.bin
+          ./src/bin/Release/net8.0/linux-x64/publish/*.so
+          ./src/bin/Release/net8.0/linux-x64/publish/*.png
+  build-on-linux-arm64:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup NativeAOT pre-requisites
+      run: sudo apt-get install clang zlib1g-dev libkrb5-dev --assume-yes
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 8.0.x
+    - name: Publish
+      run: |
+        sudo chmod +x ./test_arm64.sh
+        ./test.sh
+    - uses: actions/upload-artifact@v2
+      with:
+        name: linux-arm64-Artifact
+        path: |
+          ./src/bin/Release/net8.0/linux-arm64/publish/*.bin
+          ./src/bin/Release/net8.0/linux-arm64/publish/*.so
+          ./src/bin/Release/net8.0/linux-arm64/publish/*.png
+  build-on-windows-x64:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 8.0.x
     - name: Publish
       run: ./test.cmd
     - uses: actions/upload-artifact@v2
       with:
-        name: Windows-Artifact
+        name: windows-x64-Artifact
         path: |
-          .\src\bin\Release\net7.0\win-x64\publish\*.exe
-          .\src\bin\Release\net7.0\win-x64\publish\*.dll
-          .\src\bin\Release\net7.0\win-x64\publish\*.png
-  build-on-macos:
+          .\src\bin\Release\net8.0\win-x64\publish\*.exe
+          .\src\bin\Release\net8.0\win-x64\publish\*.dll
+          .\src\bin\Release\net8.0\win-x64\publish\*.png
+  build-on-windows-arm64:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 8.0.x
+    - name: Publish
+      run: ./test_arm64.cmd
+    - uses: actions/upload-artifact@v2
+      with:
+        name: windows-arm64-Artifact
+        path: |
+          .\src\bin\Release\net8.0\win-arm64\publish\*.exe
+          .\src\bin\Release\net8.0\win-arm64\publish\*.dll
+          .\src\bin\Release\net8.0\win-arm64\publish\*.png
+  build-on-macos-x64:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 8.0.x
     - name: Publish
       run: |
         sudo chmod +x ./test.command
         ./test.command
-        cd ./src/bin/Release/net7.0/osx-x64/publish
-        zip -r -0 macOS-Artifact.zip *.app
+        cd ./src/bin/Release/net8.0/osx-x64/publish
+        zip -r -0 macOS-x64-Artifact.zip *.app
         mv *.zip ../../../../../../.
     - uses: actions/upload-artifact@v2
       with:
-        name: macOS-Artifact
-        path: macOS-Artifact.zip
+        name: macOS-x64-Artifact
+        path: macOS-x64-Artifact.zip
+  build-on-macos-arm64:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 8.0.x
+    - name: Publish
+      run: |
+        sudo chmod +x ./test_arm64.command
+        ./test_arm64.command
+        cd ./src/bin/Release/net8.0/osx-arm64/publish
+        zip -r -0 macOS-arm64-Artifact.zip *.app
+        mv *.zip ../../../../../../.
+    - uses: actions/upload-artifact@v2
+      with:
+        name: macOS-arm64-Artifact
+        path: macOS-arm64-Artifact.zip
