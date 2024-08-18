@@ -33,7 +33,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Setup NativeAOT pre-requisites
-      run: sudo apt-get install clang llvm binutils-aarch64-linux-gnu gcc-aarch64-linux-gnu zlib1g-dev libkrb5-dev --assume-yes
+      run: |
+        sudo dpkg --add-architecture arm64
+        sudo apt-get install clang llvm binutils-aarch64-linux-gnu gcc-aarch64-linux-gnu zlib1g-dev:arm64 --assume-yes
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
