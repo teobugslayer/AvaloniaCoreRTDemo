@@ -41,7 +41,7 @@ jobs:
     - name: Publish
       run: |
         sudo chmod +x ./test_arm64.sh
-        ./test.sh
+        ./test_arm64.sh
     - uses: actions/upload-artifact@v2
       with:
         name: linux-arm64-Artifact
