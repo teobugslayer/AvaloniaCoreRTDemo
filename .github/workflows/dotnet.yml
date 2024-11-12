@@ -102,7 +102,7 @@ jobs:
       with:
         dotnet-version: 9.0.x
     - name: Publish
-      run: ./test.cmd
+      run: ./test_x86.cmd
     - uses: actions/upload-artifact@v4
       with:
         name: windows-x86-Artifact
