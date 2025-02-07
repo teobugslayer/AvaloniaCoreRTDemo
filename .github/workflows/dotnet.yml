@@ -191,14 +191,14 @@ jobs:
     - name: Publish
       run: |
         sudo chmod +x ./test_arm.sh
-        ./test_arm64.sh
+        ./test_arm.sh
     - uses: actions/upload-artifact@v4
       with:
-        name: linux-arm64-Artifact
+        name: linux-arm-Artifact
         path: |
-          ./src/bin/Release/net9.0/linux-arm64/publish/*.bin
-          ./src/bin/Release/net9.0/linux-arm64/publish/*.so
-          ./src/bin/Release/net9.0/linux-arm64/publish/*.png
+          ./src/bin/Release/net9.0/linux-arm/publish/*.bin
+          ./src/bin/Release/net9.0/linux-arm/publish/*.so
+          ./src/bin/Release/net9.0/linux-arm/publish/*.png
   build-on-windows-x64:
     runs-on: windows-latest
     steps:
