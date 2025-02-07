@@ -1,8 +1,0 @@
-<Directives>
-  <Application>
-    <Assembly Name="Avalonia.Win32">
-	  <!--In order to retrieve HiddenBorderSize-->
-      <Type Name="Avalonia.Win32.WindowImpl" Dynamic="Required All"/>
-    </Assembly>
-  </Application>
-</Directives>

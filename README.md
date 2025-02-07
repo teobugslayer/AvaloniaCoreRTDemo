@@ -4,7 +4,7 @@ Using this project, you will learn how to develop using both frameworks. You may
 ## System requirements
 This project is tested only under Windows, and this readme assumes you are using Windows. To build this project, you need:
 
-* Any supported 64-bit edition of Windows. NativeAOT requires 64-bit Windows and produces only 64-bit Windows apps.
+* Any supported 64-bit edition of Windows. NativeAOT requires 64-bit Windows.
 * Visual Studio. VS 2022 Community is free for personal use. Get if from [here](https://visualstudio.microsoft.com).
 When installing Visual Studio, select *.NET desktop development* and *Desktop development with C++* workloads. To generate native code, NativeAOT requires the native C++ toolchain and Windows SDK. This configuration ensures you have them.
 * .Net 7.0 SDK. Download it from [here](https://dotnet.microsoft.com/download/dotnet/7.0). Note: Make sure that you download and install the *SDK*. The runtime is not enough for building apps.
@@ -28,7 +28,7 @@ dotnet publish -r win-x64 -c release
 ```
 **Note**: Avalonia and NativeAOT are huge and downloading their NuGet packages may take some time. During this period, which happens on the first build, and when NativeAOT releases a new version, it will look like nothing happens. Just be patient.
 
-We are ready - In your terminal, navigate to `src\bin\Release\net6.0\win-x64\publish`, and start AvaloniaCoreRTDemo.exe - it should work!
+We are ready - In your terminal, navigate to `src\bin\Release\net9.0\win-x64\publish`, and start AvaloniaCoreRTDemo.exe - it should work!
 
 ## Further development
 
@@ -38,6 +38,6 @@ This project is configured to help you debug issues with publishing. Before publ
 
 ## Artifact test
 
-For any change in this repo we will build the artifact for Windows-x64, Linux-x64 and macOS-x64.
+For any change in this repo we will build the artifact for Windows-x86, Windows-x64, Windows-arm64, Linux-x64, Linux-arm64, macOS-x64 and macOS-arm64.
 You can download them from workflows run results.
 For run the artifact on macOS make sure to allow the application in System Preferences, Security & Privacy, General.
