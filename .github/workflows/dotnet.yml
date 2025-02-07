@@ -184,6 +184,7 @@ jobs:
         sudo sed -i -e 's/deb mirror/deb [arch=amd64] mirror/g' /etc/apt/sources.list
         sudo apt update
         sudo apt-get install clang llvm binutils-arm-linux-gnueabihf gcc-arm-linux-gnueabihf zlib1g-dev:armhf crossbuild-essential-armhf --assume-yes
+        sudo chmod -R +x /usr/arm-linux-gnueabihf/*
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
