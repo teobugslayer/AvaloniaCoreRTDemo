@@ -129,7 +129,7 @@ jobs:
           ./src/bin/Release/net9.0/linux-arm64/publish/*.so
           ./src/bin/Release/net9.0/linux-arm64/publish/*.png
   build-on-linux-arm:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
     - name: APT deb822 sources
