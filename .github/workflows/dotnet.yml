@@ -183,7 +183,7 @@ jobs:
         sudo sed -i -e 's/deb http/deb [arch=amd64] http/g' /etc/apt/sources.list
         sudo sed -i -e 's/deb mirror/deb [arch=amd64] mirror/g' /etc/apt/sources.list
         sudo apt update
-        sudo apt-get install clang llvm binutils-arm-linux-gnueabihf gcc-arm-linux-gnueabihf zlib1g-dev:armhf crossbuild-essential-armhf --assume-yes
+        sudo apt-get install clang llvm binutils-arm-linux-gnu gcc-arm-linux-gnu zlib1g-dev:armhf --assume-yes
         sudo chmod -R +x /usr/arm-linux-gnueabihf/*
         sudo chmod -R +x /usr/bin/arm-linux-gnueabihf-*
     - name: Setup .NET
