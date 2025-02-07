@@ -136,7 +136,7 @@ jobs:
       run: |
         if [[ $ImageOS == "ubuntu24" ]]; then
             cat <<EOF > deb822sources
-          Types: deb
+        Types: deb
         URIs: http://archive.ubuntu.com/ubuntu/
         Suites: noble
         Components: main restricted universe
@@ -175,7 +175,7 @@ jobs:
     - name: Setup NativeAOT pre-requisites
       run: |
         sudo dpkg --add-architecture armhf
-        sudo bash -c 'cat > /etc/apt/sources.list.d/arm.list <<EOF
+        sudo bash -c 'cat > /etc/apt/sources.list.d/armhf.list <<EOF
         deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted
         deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted
         deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports/ noble-backports main restricted universe multiverse
@@ -190,7 +190,7 @@ jobs:
         dotnet-version: 9.0.x
     - name: Publish
       run: |
-        sudo chmod +x ./test_arm64.sh
+        sudo chmod +x ./test_arm.sh
         ./test_arm64.sh
     - uses: actions/upload-artifact@v4
       with:
