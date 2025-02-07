@@ -174,7 +174,7 @@ jobs:
 
     - name: Setup NativeAOT pre-requisites
       run: |
-        sudo dpkg --add-architecture armhf
+        sudo dpkg --add-architecture arm
         sudo bash -c 'cat > /etc/apt/sources.list.d/arm.list <<EOF
         deb [arch=arm] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted
         deb [arch=arm] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted
