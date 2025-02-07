@@ -32,6 +32,45 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    - name: APT deb822 sources
+        run: |
+          if [[ $ImageOS == "ubuntu24" ]]; then
+            cat <<EOF > deb822sources
+          Types: deb
+          URIs: http://archive.ubuntu.com/ubuntu/
+          Suites: noble
+          Components: main restricted universe
+          Architectures: amd64
+
+          Types: deb
+          URIs: http://security.ubuntu.com/ubuntu/
+          Suites: noble-security
+          Components: main restricted universe
+          Architectures: amd64
+
+          Types: deb
+          URIs: http://archive.ubuntu.com/ubuntu/
+          Suites: noble-updates
+          Components: main restricted universe
+          Architectures: amd64
+
+          Types: deb
+          URIs: http://azure.ports.ubuntu.com/ubuntu-ports/
+          Suites: noble
+          Components: main restricted multiverse universe
+          Architectures: arm64
+
+          Types: deb
+          URIs: http://azure.ports.ubuntu.com/ubuntu-ports/
+          Suites: noble-updates
+          Components: main restricted multiverse universe
+          Architectures: arm64
+          EOF
+
+            sudo mv deb822sources /etc/apt/sources.list.d/ubuntu.sources
+          else
+            sudo mv config/crosscomp-sources.list /etc/apt/sources.list
+          fi
     - name: Setup NativeAOT pre-requisites
       run: |
         sudo dpkg --add-architecture arm64
@@ -63,6 +102,45 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    - name: APT deb822 sources
+        run: |
+          if [[ $ImageOS == "ubuntu24" ]]; then
+            cat <<EOF > deb822sources
+          Types: deb
+          URIs: http://archive.ubuntu.com/ubuntu/
+          Suites: noble
+          Components: main restricted universe
+          Architectures: amd64
+
+          Types: deb
+          URIs: http://security.ubuntu.com/ubuntu/
+          Suites: noble-security
+          Components: main restricted universe
+          Architectures: amd64
+
+          Types: deb
+          URIs: http://archive.ubuntu.com/ubuntu/
+          Suites: noble-updates
+          Components: main restricted universe
+          Architectures: amd64
+
+          Types: deb
+          URIs: http://azure.ports.ubuntu.com/ubuntu-ports/
+          Suites: noble
+          Components: main restricted multiverse universe
+          Architectures: armhf
+
+          Types: deb
+          URIs: http://azure.ports.ubuntu.com/ubuntu-ports/
+          Suites: noble-updates
+          Components: main restricted multiverse universe
+          Architectures: armhf
+          EOF
+
+            sudo mv deb822sources /etc/apt/sources.list.d/ubuntu.sources
+          else
+            sudo mv config/crosscomp-sources.list /etc/apt/sources.list
+          fi
     - name: Setup NativeAOT pre-requisites
       run: |
         sudo dpkg --add-architecture armhf
