@@ -39,7 +39,9 @@ jobs:
             sudo mv config/crosscomp-sources.list /etc/apt/sources.list
           fi
     - name: Setup NativeAOT pre-requisites
-      run: sudo apt-get install clang zlib1g-dev libkrb5-dev --assume-yes
+      run: |
+        sudo apt update 
+        sudo apt-get install clang zlib1g-dev libkrb5-dev --assume-yes
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
@@ -63,36 +65,36 @@ jobs:
       run: |
         if [[ $ImageOS == "ubuntu24" ]]; then
             cat <<EOF > deb822sources
-          Types: deb
-          URIs: http://archive.ubuntu.com/ubuntu/
-          Suites: noble
-          Components: main restricted universe
-          Architectures: amd64
+        Types: deb
+        URIs: http://archive.ubuntu.com/ubuntu/
+        Suites: noble
+        Components: main restricted universe
+        Architectures: amd64
 
-          Types: deb
-          URIs: http://security.ubuntu.com/ubuntu/
-          Suites: noble-security
-          Components: main restricted universe
-          Architectures: amd64
+        Types: deb
+        URIs: http://security.ubuntu.com/ubuntu/
+        Suites: noble-security
+        Components: main restricted universe
+        Architectures: amd64
 
-          Types: deb
-          URIs: http://archive.ubuntu.com/ubuntu/
-          Suites: noble-updates
-          Components: main restricted universe
-          Architectures: amd64
+        Types: deb
+        URIs: http://archive.ubuntu.com/ubuntu/
+        Suites: noble-updates
+        Components: main restricted universe
+        Architectures: amd64
 
-          Types: deb
-          URIs: http://azure.ports.ubuntu.com/ubuntu-ports/
-          Suites: noble
-          Components: main restricted multiverse universe
-          Architectures: arm64
+        Types: deb
+        URIs: http://azure.ports.ubuntu.com/ubuntu-ports/
+        Suites: noble
+        Components: main restricted multiverse universe
+        Architectures: arm64
 
-          Types: deb
-          URIs: http://azure.ports.ubuntu.com/ubuntu-ports/
-          Suites: noble-updates
-          Components: main restricted multiverse universe
-          Architectures: arm64
-            EOF
+        Types: deb
+        URIs: http://azure.ports.ubuntu.com/ubuntu-ports/
+        Suites: noble-updates
+        Components: main restricted multiverse universe
+        Architectures: arm64
+        EOF
 
             sudo mv deb822sources /etc/apt/sources.list.d/ubuntu.sources
           else
@@ -135,35 +137,35 @@ jobs:
         if [[ $ImageOS == "ubuntu24" ]]; then
             cat <<EOF > deb822sources
           Types: deb
-          URIs: http://archive.ubuntu.com/ubuntu/
-          Suites: noble
-          Components: main restricted universe
-          Architectures: amd64
+        URIs: http://archive.ubuntu.com/ubuntu/
+        Suites: noble
+        Components: main restricted universe
+        Architectures: amd64
 
-          Types: deb
-          URIs: http://security.ubuntu.com/ubuntu/
-          Suites: noble-security
-          Components: main restricted universe
-          Architectures: amd64
+        Types: deb
+        URIs: http://security.ubuntu.com/ubuntu/
+        Suites: noble-security
+        Components: main restricted universe
+        Architectures: amd64
 
-          Types: deb
-          URIs: http://archive.ubuntu.com/ubuntu/
-          Suites: noble-updates
-          Components: main restricted universe
-          Architectures: amd64
+        Types: deb
+        URIs: http://archive.ubuntu.com/ubuntu/
+        Suites: noble-updates
+        Components: main restricted universe
+        Architectures: amd64
 
-          Types: deb
-          URIs: http://azure.ports.ubuntu.com/ubuntu-ports/
-          Suites: noble
-          Components: main restricted multiverse universe
-          Architectures: armhf
+        Types: deb
+        URIs: http://azure.ports.ubuntu.com/ubuntu-ports/
+        Suites: noble
+        Components: main restricted multiverse universe
+        Architectures: armhf
 
-          Types: deb
-          URIs: http://azure.ports.ubuntu.com/ubuntu-ports/
-          Suites: noble-updates
-          Components: main restricted multiverse universe
-          Architectures: armhf
-            EOF
+        Types: deb
+        URIs: http://azure.ports.ubuntu.com/ubuntu-ports/
+        Suites: noble-updates
+        Components: main restricted multiverse universe
+        Architectures: armhf
+        EOF
 
             sudo mv deb822sources /etc/apt/sources.list.d/ubuntu.sources
           else
