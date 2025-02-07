@@ -59,6 +59,37 @@ jobs:
           ./src/bin/Release/net9.0/linux-arm64/publish/*.bin
           ./src/bin/Release/net9.0/linux-arm64/publish/*.so
           ./src/bin/Release/net9.0/linux-arm64/publish/*.png
+  build-on-linux-arm:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup NativeAOT pre-requisites
+      run: |
+        sudo dpkg --add-architecture armhf
+        sudo bash -c 'cat > /etc/apt/sources.list.d/arm.list <<EOF
+        deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports/ jammy main restricted
+        deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports/ jammy-updates main restricted
+        deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports/ jammy-backports main restricted universe multiverse
+        EOF'
+        sudo sed -i -e 's/deb http/deb [arch=amd64] http/g' /etc/apt/sources.list
+        sudo sed -i -e 's/deb mirror/deb [arch=amd64] mirror/g' /etc/apt/sources.list
+        sudo apt update
+        sudo apt-get install clang llvm binutils-arm-linux-gnueabihf gcc-arm-linux-gnueabihf zlib1g-dev:arm --assume-yes
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+    - name: Publish
+      run: |
+        sudo chmod +x ./test_arm64.sh
+        ./test_arm64.sh
+    - uses: actions/upload-artifact@v4
+      with:
+        name: linux-arm64-Artifact
+        path: |
+          ./src/bin/Release/net9.0/linux-arm64/publish/*.bin
+          ./src/bin/Release/net9.0/linux-arm64/publish/*.so
+          ./src/bin/Release/net9.0/linux-arm64/publish/*.png
   build-on-windows-x64:
     runs-on: windows-latest
     steps:
