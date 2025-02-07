@@ -15,24 +15,24 @@ jobs:
       run: |
         if [[ $ImageOS == "ubuntu24" ]]; then
             cat <<EOF > deb822sources
-          Types: deb
-          URIs: http://archive.ubuntu.com/ubuntu/
-          Suites: noble
-          Components: main restricted universe
-          Architectures: amd64
+        Types: deb
+        URIs: http://archive.ubuntu.com/ubuntu/
+        Suites: noble
+        Components: main restricted universe
+        Architectures: amd64
 
-          Types: deb
-          URIs: http://security.ubuntu.com/ubuntu/
-          Suites: noble-security
-          Components: main restricted universe
-          Architectures: amd64
+        Types: deb
+        URIs: http://security.ubuntu.com/ubuntu/
+        Suites: noble-security
+        Components: main restricted universe
+        Architectures: amd64
 
-          Types: deb
-          URIs: http://archive.ubuntu.com/ubuntu/
-          Suites: noble-updates
-          Components: main restricted universe
-          Architectures: amd64
-            EOF
+        Types: deb
+        URIs: http://archive.ubuntu.com/ubuntu/
+        Suites: noble-updates
+        Components: main restricted universe
+        Architectures: amd64
+        EOF
 
             sudo mv deb822sources /etc/apt/sources.list.d/ubuntu.sources
           else
