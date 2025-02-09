@@ -7,60 +7,271 @@ on:
     branches: [ master ]
 
 jobs:
-  build-on-linux:
+  build-on-linux-x64:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+    - name: APT deb822 sources
+      run: |
+        if [[ $ImageOS == "ubuntu24" ]]; then
+            sudo bash -c 'cat > /etc/apt/sources.list.d/ubuntu.sources <<EOF
+        Types: deb
+        URIs: http://archive.ubuntu.com/ubuntu/
+        Suites: noble
+        Components: main restricted universe
+        Architectures: amd64
+
+        Types: deb
+        URIs: http://security.ubuntu.com/ubuntu/
+        Suites: noble-security
+        Components: main restricted universe
+        Architectures: amd64
+
+        Types: deb
+        URIs: http://archive.ubuntu.com/ubuntu/
+        Suites: noble-updates
+        Components: main restricted universe
+        Architectures: amd64
+        EOF'
+          fi
     - name: Setup NativeAOT pre-requisites
-      run: sudo apt-get install clang zlib1g-dev libkrb5-dev --assume-yes
+      run: |
+        sudo apt update 
+        sudo apt-get install clang zlib1g-dev libkrb5-dev --assume-yes
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 9.0.x
     - name: Publish
       run: |
         sudo chmod +x ./test.sh
         ./test.sh
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
-        name: Linux-Artifact
+        name: linux-x64-Artifact
         path: |
-          ./src/bin/Release/net7.0/linux-x64/publish/*.bin
-          ./src/bin/Release/net7.0/linux-x64/publish/*.so
-          ./src/bin/Release/net7.0/linux-x64/publish/*.png
-  build-on-windows:
+          ./src/bin/Release/net9.0/linux-x64/publish/*.bin
+          ./src/bin/Release/net9.0/linux-x64/publish/*.so
+          ./src/bin/Release/net9.0/linux-x64/publish/*.png
+  build-on-linux-arm64:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: APT deb822 sources
+      run: |
+        if [[ $ImageOS == "ubuntu24" ]]; then
+            sudo bash -c 'cat > /etc/apt/sources.list.d/ubuntu.sources <<EOF
+        Types: deb
+        URIs: http://archive.ubuntu.com/ubuntu/
+        Suites: noble
+        Components: main restricted universe
+        Architectures: amd64
+
+        Types: deb
+        URIs: http://security.ubuntu.com/ubuntu/
+        Suites: noble-security
+        Components: main restricted universe
+        Architectures: amd64
+
+        Types: deb
+        URIs: http://archive.ubuntu.com/ubuntu/
+        Suites: noble-updates
+        Components: main restricted universe
+        Architectures: amd64
+
+        Types: deb
+        URIs: http://azure.ports.ubuntu.com/ubuntu-ports/
+        Suites: noble
+        Components: main restricted multiverse universe
+        Architectures: arm64
+
+        Types: deb
+        URIs: http://azure.ports.ubuntu.com/ubuntu-ports/
+        Suites: noble-updates
+        Components: main restricted multiverse universe
+        Architectures: arm64
+        EOF'
+          fi
+
+    - name: Setup NativeAOT pre-requisites
+      run: |
+        sudo dpkg --add-architecture arm64
+        sudo bash -c 'cat > /etc/apt/sources.list.d/arm64.list <<EOF
+        deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted
+        deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted
+        deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ noble-backports main restricted universe multiverse
+        EOF'
+        sudo sed -i -e 's/deb http/deb [arch=amd64] http/g' /etc/apt/sources.list
+        sudo sed -i -e 's/deb mirror/deb [arch=amd64] mirror/g' /etc/apt/sources.list
+        sudo apt update
+        sudo apt-get install clang llvm binutils-aarch64-linux-gnu gcc-aarch64-linux-gnu zlib1g-dev:arm64 --assume-yes
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+    - name: Publish
+      run: |
+        sudo chmod +x ./test_arm64.sh
+        ./test_arm64.sh
+    - uses: actions/upload-artifact@v4
+      with:
+        name: linux-arm64-Artifact
+        path: |
+          ./src/bin/Release/net9.0/linux-arm64/publish/*.bin
+          ./src/bin/Release/net9.0/linux-arm64/publish/*.so
+          ./src/bin/Release/net9.0/linux-arm64/publish/*.png
+  build-on-linux-arm:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: APT deb822 sources
+      run: |
+        if [[ $ImageOS == "ubuntu24" ]]; then
+            sudo bash -c 'cat > /etc/apt/sources.list.d/ubuntu.sources <<EOF
+        Types: deb
+        URIs: http://archive.ubuntu.com/ubuntu/
+        Suites: noble
+        Components: main restricted universe
+        Architectures: amd64
+
+        Types: deb
+        URIs: http://security.ubuntu.com/ubuntu/
+        Suites: noble-security
+        Components: main restricted universe
+        Architectures: amd64
+
+        Types: deb
+        URIs: http://archive.ubuntu.com/ubuntu/
+        Suites: noble-updates
+        Components: main restricted universe
+        Architectures: amd64
+
+        Types: deb
+        URIs: http://azure.ports.ubuntu.com/ubuntu-ports/
+        Suites: noble
+        Components: main restricted multiverse universe
+        Architectures: armhf
+
+        Types: deb
+        URIs: http://azure.ports.ubuntu.com/ubuntu-ports/
+        Suites: noble-updates
+        Components: main restricted multiverse universe
+        Architectures: armhf
+        EOF'
+          fi
+    - name: Setup NativeAOT pre-requisites
+      run: |
+        sudo dpkg --add-architecture armhf
+        sudo bash -c 'cat > /etc/apt/sources.list.d/armhf.list <<EOF
+        deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted
+        deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted
+        deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports/ noble-backports main restricted universe multiverse
+        EOF'
+        sudo sed -i -e 's/deb http/deb [arch=amd64] http/g' /etc/apt/sources.list
+        sudo sed -i -e 's/deb mirror/deb [arch=amd64] mirror/g' /etc/apt/sources.list
+        sudo apt update
+        sudo apt-get --install-recommends --install-suggests install clang binutils-arm-linux-gnueabihf gcc-arm-linux-gnueabihf zlib1g-dev:armhf --assume-yes
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+    - name: Publish
+      run: |
+        sudo chmod +x ./test_arm.sh
+        ./test_arm.sh
+    - uses: actions/upload-artifact@v4
+      with:
+        name: linux-arm-Artifact
+        path: |
+          ./src/bin/Release/net9.0/linux-arm/publish/*.bin
+          ./src/bin/Release/net9.0/linux-arm/publish/*.so
+          ./src/bin/Release/net9.0/linux-arm/publish/*.png
+  build-on-windows-x64:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 9.0.x
     - name: Publish
       run: ./test.cmd
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
-        name: Windows-Artifact
+        name: windows-x64-Artifact
         path: |
-          .\src\bin\Release\net7.0\win-x64\publish\*.exe
-          .\src\bin\Release\net7.0\win-x64\publish\*.dll
-          .\src\bin\Release\net7.0\win-x64\publish\*.png
-  build-on-macos:
+          .\src\bin\Release\net9.0\win-x64\publish\*.exe
+          .\src\bin\Release\net9.0\win-x64\publish\*.dll
+          .\src\bin\Release\net9.0\win-x64\publish\*.png
+  build-on-windows-arm64:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+    - name: Publish
+      run: ./test_arm64.cmd
+    - uses: actions/upload-artifact@v4
+      with:
+        name: windows-arm64-Artifact
+        path: |
+          .\src\bin\Release\net9.0\win-arm64\publish\*.exe
+          .\src\bin\Release\net9.0\win-arm64\publish\*.dll
+          .\src\bin\Release\net9.0\win-arm64\publish\*.png
+  build-on-windows-x86:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+    - name: Publish
+      run: ./test_x86.cmd
+    - uses: actions/upload-artifact@v4
+      with:
+        name: windows-x86-Artifact
+        path: |
+          .\src\bin\Release\net9.0\win-x86\publish\*.exe
+          .\src\bin\Release\net9.0\win-x86\publish\*.dll
+          .\src\bin\Release\net9.0\win-x86\publish\*.png
+  build-on-macos-x64:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 9.0.x
     - name: Publish
       run: |
         sudo chmod +x ./test.command
         ./test.command
-        cd ./src/bin/Release/net7.0/osx-x64/publish
-        zip -r -0 macOS-Artifact.zip *.app
+        cd ./src/bin/Release/net9.0/osx-x64/publish
+        zip -r -0 macOS-x64-Artifact.zip *.app
         mv *.zip ../../../../../../.
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
-        name: macOS-Artifact
-        path: macOS-Artifact.zip
+        name: macOS-x64-Artifact
+        path: macOS-x64-Artifact.zip
+  build-on-macos-arm64:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+    - name: Publish
+      run: |
+        sudo chmod +x ./test_arm64.command
+        ./test_arm64.command
+        cd ./src/bin/Release/net9.0/osx-arm64/publish
+        zip -r -0 macOS-arm64-Artifact.zip *.app
+        mv *.zip ../../../../../../.
+    - uses: actions/upload-artifact@v4
+      with:
+        name: macOS-arm64-Artifact
+        path: macOS-arm64-Artifact.zip
