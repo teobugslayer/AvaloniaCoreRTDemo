@@ -4,13 +4,13 @@
     <!-- if you want to check exceptions, change this to "Exe" and start your app from the console -->
     <OutputType Condition="'$(Configuration.toUpper())' != 'DEBUG'">WinExe</OutputType>
     <OutputType Condition="'$(Configuration.toUpper())' == 'DEBUG'">Exe</OutputType>
-    <TargetFramework>net9.0</TargetFramework>
     <ApplicationIcon>Assets/app.ico</ApplicationIcon>
     <InvariantGlobalization>true</InvariantGlobalization>
     <Nullable>enable</Nullable>
     <PublishAot>true</PublishAot>
     <PublishTrimmed>true</PublishTrimmed>
     <SelfContained>true</SelfContained>
+    <TargetFrameworks>net9.0;net10.0</TargetFrameworks>
   </PropertyGroup>
   
   <PropertyGroup>
@@ -47,12 +47,12 @@
   </ItemGroup>
     
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.2.3" />
-    <PackageReference Include="Avalonia.Desktop" Version="11.2.3" />
-    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.2.3" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.3" />
-    <PackageReference Include="Avalonia.Themes.Simple" Version="11.2.3" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.3" />
+    <PackageReference Include="Avalonia" Version="11.3.4" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.3.4" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.3.4" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.3.4" />
+    <PackageReference Include="Avalonia.Themes.Simple" Version="11.3.4" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.4" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.2.3" />
     <!--Condition below is needed to generate macOS App only.-->
