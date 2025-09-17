@@ -8,11 +8,11 @@ namespace AvaloniaCoreRTDemo.Windows
 {
     public sealed partial class AboutWindow : Window
     {
-        private readonly Boolean _darkTheme;
+        private readonly bool _darkTheme;
 
         public AboutWindow() : this(false) { }
 
-        public AboutWindow(Boolean darkTheme)
+        public AboutWindow(bool darkTheme)
         {
             this._darkTheme = darkTheme;
             this.InitializeComponent();

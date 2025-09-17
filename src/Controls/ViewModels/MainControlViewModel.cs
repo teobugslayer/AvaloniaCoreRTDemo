@@ -11,7 +11,7 @@ namespace AvaloniaCoreRTDemo.Controls.ViewModels
         private readonly IImage _dotNetImage;
         private readonly IImage _avaloniaImage;
 
-        private Boolean _unloadable = false;
+        private bool _unloadable = false;
 
         public IImage DotNetImage => this._dotNetImage;
         public IImage AvaloniaImage => this._avaloniaImage;

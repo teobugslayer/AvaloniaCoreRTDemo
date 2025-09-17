@@ -13,7 +13,7 @@ namespace AvaloniaCoreRTDemo.Windows.ViewModels
     internal sealed class AboutViewModel : ReactiveObject
     {
         private readonly IImage _computerImage;
-        private readonly Boolean _darkTheme;
+        private readonly bool _darkTheme;
 
         public IImage ComputerImage => _computerImage;
 
@@ -47,7 +47,7 @@ namespace AvaloniaCoreRTDemo.Windows.ViewModels
             }
         }
 
-        public AboutViewModel(Boolean darkTheme)
+        public AboutViewModel(bool darkTheme)
         {
             this._darkTheme = darkTheme;
             this._computerImage = Utilities.GetImageFromResources(this.ComputerImageName);
