@@ -2,15 +2,14 @@
 
 using Avalonia.Media;
 
-namespace AvaloniaCoreRTDemo
-{
-    public interface IMainWindowState
-    {
-        IImage DotNetImage { get; }
-        IImage AvaloniaImage { get; }
-        String? Text { get; }
+namespace AvaloniaCoreRTDemo;
 
-        void SetUnloadable();
-    }
+public interface IMainWindowState
+{
+    IImage DotNetImage { get; }
+    IImage AvaloniaImage { get; }
+    String? Text { get; }
+
+    void SetUnloadable();
 }
 

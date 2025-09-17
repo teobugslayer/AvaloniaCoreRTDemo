@@ -1,13 +1,12 @@
 ﻿using System;
 
-namespace AvaloniaCoreRTDemo
+namespace AvaloniaCoreRTDemo;
+
+public enum ApplicationTheme : Byte
 {
-    public enum ApplicationTheme : Byte
-    {
-        SimpleLight = 0,
-        SimpleDark = 1,
-        FluentLight = 2,
-        FluentDark = 3,
-        Classic = 4,
-    }
+    SimpleLight = 0,
+    SimpleDark = 1,
+    FluentLight = 2,
+    FluentDark = 3,
+    Classic = 4,
 }
