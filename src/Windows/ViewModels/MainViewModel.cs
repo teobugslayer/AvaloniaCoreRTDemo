@@ -20,5 +20,7 @@ namespace AvaloniaCoreRTDemo.Windows.ViewModels
         public override void DefaultDarkMethod() => base.SetTheme(ApplicationTheme.SimpleDark);
         public override void FluentLightMethod() => base.SetTheme(ApplicationTheme.FluentLight);
         public override void FluentDarkMethod() => base.SetTheme(ApplicationTheme.FluentDark);
+
+        public override void ClassicMethod() => base.SetTheme(ApplicationTheme.Classic);
     }
 }

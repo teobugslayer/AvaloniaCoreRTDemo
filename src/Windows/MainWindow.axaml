@@ -26,6 +26,7 @@
                         <NativeMenuItem Header="Default Dark" IsEnabled="{Binding DefaultDarkEnabled}" Command="{Binding DefaultDarkMethod}"/>
                         <NativeMenuItem Header="Fluent Light" IsEnabled="{Binding FluentLightEnabled}" Command="{Binding FluentLightMethod}"/>
                         <NativeMenuItem Header="Fluent Dark" IsEnabled="{Binding FluentDarkEnabled}" Command="{Binding FluentDarkMethod}"/>
+						<NativeMenuItem Header="Classic" IsEnabled="{Binding ClassicEnabled}" Command="{Binding ClassicMethod}" />
                     </NativeMenu>
                 </NativeMenuItem.Menu>
             </NativeMenuItem>

@@ -12,40 +12,47 @@ namespace AvaloniaCoreRTDemo.Windows.ViewModels
     internal abstract class ApplicationModelBase : ReactiveObject
     {
         private readonly IThemeSwitch _themeSwitch;
-        private Boolean _aboutEnable = true;
-        private Boolean _defaultLightEnable = false;
-        private Boolean _defaultDarkEnable = false;
-        private Boolean _fluentLightEnable = false;
-        private Boolean _fluentDarkEnable = false;
+        private bool _aboutEnable = true;
+        private bool _defaultLightEnable = false;
+        private bool _defaultDarkEnable = false;
+        private bool _fluentLightEnable = false;
+        private bool _fluentDarkEnable = false;
+        private bool _classicEnable = false;
 
-        public Boolean AboutEnabled
+        public bool AboutEnabled
         {
             get => this._aboutEnable;
             set => this.RaiseAndSetIfChanged(ref this._aboutEnable, value);
         }
 
-        public Boolean DefaultLightEnabled
+        public bool DefaultLightEnabled
         {
             get => this._defaultLightEnable;
             set => this.RaiseAndSetIfChanged(ref this._defaultLightEnable, value);
         }
 
-        public Boolean DefaultDarkEnabled
+        public bool DefaultDarkEnabled
         {
             get => this._defaultDarkEnable;
             set => this.RaiseAndSetIfChanged(ref this._defaultDarkEnable, value);
         }
 
-        public Boolean FluentLightEnabled
+        public bool FluentLightEnabled
         {
             get => this._fluentLightEnable;
             set => this.RaiseAndSetIfChanged(ref this._fluentLightEnable, value);
         }
 
-        public Boolean FluentDarkEnabled
+        public bool FluentDarkEnabled
         {
             get => this._fluentDarkEnable;
             set => this.RaiseAndSetIfChanged(ref this._fluentDarkEnable, value);
+        }
+
+        public bool ClassicEnabled
+        {
+            get => this._classicEnable;
+            set => this.RaiseAndSetIfChanged(ref this._classicEnable, value);
         }
 
         public ReactiveCommand<Unit, Unit> FileExitCommand { get; }
@@ -62,6 +69,7 @@ namespace AvaloniaCoreRTDemo.Windows.ViewModels
         public abstract void DefaultDarkMethod();
         public abstract void FluentLightMethod();
         public abstract void FluentDarkMethod();
+        public abstract void ClassicMethod();
 
         protected async void RunHelpAbout(Window currentWindow)
         {
@@ -93,7 +101,7 @@ namespace AvaloniaCoreRTDemo.Windows.ViewModels
             this.FluentDarkEnabled = theme != ApplicationTheme.FluentDark;
         }
 
-        private static Boolean IsDarkTheme(ApplicationTheme? theme)
+        private static bool IsDarkTheme(ApplicationTheme? theme)
             => theme switch
             {
                 ApplicationTheme.SimpleDark => true,

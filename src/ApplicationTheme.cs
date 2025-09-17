@@ -8,5 +8,6 @@ namespace AvaloniaCoreRTDemo
         SimpleDark = 1,
         FluentLight = 2,
         FluentDark = 3,
+        Classic = 4,
     }
 }
