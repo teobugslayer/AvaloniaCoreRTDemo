@@ -17,7 +17,7 @@ public sealed class App : Application, IThemeSwitch
 {
     private FluentTheme _fluentTheme = default!;
     private SimpleTheme _simpleTheme = default!;
-    private ClassicTheme _classicTheme = default;
+    private ClassicTheme _classicTheme = default!;
     private IStyle _fluentDataGrid = default!;
     private IStyle _simpleDataGrid = default!;
 
